@@ -1,0 +1,20 @@
+import React from 'react'
+import { Tabs, Tab } from 'material-ui/Tabs'
+
+import GridWithButtons from './GridWithButtons'
+import PollForm from './PollForm'
+
+const UserTabs = ({ match }) => (
+  <Tabs className="user-tabs">
+    <Tab label="New Poll">
+      <div>
+        <PollForm />
+      </div>
+    </Tab>
+    <Tab label="My Polls">
+      <GridWithButtons user={match.params.userId}/>
+    </Tab>
+  </Tabs>
+)
+
+export default UserTabs
