@@ -26,9 +26,17 @@ a {
   }
 }
 
+.header-title {
+  cursor: pointer !important;
+}
+
 .selected {
   font-weight: 600 !important ;
   color: #fff !important;
+  margin: 0.45em 0 !important;
+  span {
+    font-size: 1.125em !important;
+  }
 }
 
 .active button {
