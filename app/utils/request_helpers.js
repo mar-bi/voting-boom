@@ -45,3 +45,16 @@ export function getPolls(user, callback) {
       console.log(error)
     })
 }
+
+export function getPoll(name, callback) {
+  const url = `${home}api/getpoll/${name}`
+  console.log(url)
+  axios
+    .get(url)
+    .then(function(response) {
+      callback(response.data)
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+}

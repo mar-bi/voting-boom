@@ -18,6 +18,13 @@ app.get('/api/:user/getpolls', function(req, res) {
   res.json({ polls: userPolls });
 })
 
+app.get('/api/getpoll/:pollId', function(req, res) {
+  const name = req.params.pollId;
+  console.log(name);
+  const singlePoll = data.polls.filter((poll) => poll.pollname === name)
+  res.json(singlePoll[0]);
+})
+
 var port = 3000;
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');

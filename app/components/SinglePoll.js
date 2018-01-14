@@ -6,7 +6,7 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import FlatButton from 'material-ui/FlatButton'
 
-import { sendPollData } from '../utils/request_helpers'
+import { sendPollData, getPoll } from '../utils/request_helpers'
 import { withRouter } from 'react-router-dom'
 
 const styles = {
@@ -22,10 +22,29 @@ class SinglePoll extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      poll: {
+        pollname: '',
+        author: '',
+        question: '',
+        answers: [],
+        link: '',
+      },
       vote: ''
     }
     this.handleVote = this.handleVote.bind(this)
     this.sendVote = this.sendVote.bind(this)
+  }
+
+  componentDidMount() {
+    const poll = this.props.location.state || false
+    if (poll){ // from location
+      this.setState({ poll: this.props.location.state.poll })
+    } else { // from DB
+      const pollName = this.props.match.params.pollId
+      const changeState = poll => this.setState({ poll: poll })
+      const loadPoll = () => getPoll(pollName, changeState)
+      loadPoll()
+    }
   }
 
   handleVote(e, val) {
@@ -35,7 +54,7 @@ class SinglePoll extends React.Component {
   }
 
   sendVote(e) {
-    const poll = this.props.location.state.poll
+    const poll = this.state.poll
     const vote = {
       pollname: poll.pollname,
       author: poll.author,
@@ -43,12 +62,11 @@ class SinglePoll extends React.Component {
       option: this.state.vote,
       value: 1
     }
-    sendPollData('addVote', vote, this.props.history.push('/'))
+    sendPollData('addVote', vote, this.props.history.push(`/polls/results/${poll.pollname}`))
   }
 
   render() {
-    //console.log(this.props.location)
-    const poll = this.props.location.state.poll
+    const poll = this.state.poll
     return (
       <div className="single-poll-container">
         <Paper className="single-poll">
