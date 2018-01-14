@@ -192,6 +192,17 @@ a {
 
 .poll-results-container {
   @extend .user-tabs;
+  div {
+    padding: 1em !important;
+  }
+  h3 {
+    font-size: 2em !important;
+    color: darken($primary_color, 10%);
+    span {
+      font-size: 0.8em;
+      color: $text_color;
+    }
+  }
 }
 
 .del-button {
