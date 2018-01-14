@@ -34,14 +34,12 @@ export function sendAuthData(str, data, callback) {
     })
 }
 
-export function getPolls(user) {
+export function getPolls(user, callback) {
   const url = user ? home + `api/${user}/getpolls` : home + 'api/getpolls'
-  console.log(url)
   axios
     .get(url)
     .then(function(response) {
-      //console.log(response);
-      return response.data
+      callback(response.data.polls)
     })
     .catch(function(error) {
       console.log(error)
