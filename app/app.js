@@ -18,7 +18,6 @@ import PollAddress from './components/PollAddress'
 // import react router deps
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-
 const App = () => (
   <Router>
     <MuiThemeProvider>

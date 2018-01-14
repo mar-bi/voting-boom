@@ -5,10 +5,9 @@ import { List, ListItem } from 'material-ui/List'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import ContentLink from 'material-ui/svg-icons/content/link'
-
+import { getPolls } from '../utils/request_helpers'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { appData } from '../utils/data'
 
 const styles = {
   label: { color: '#fff' }
@@ -26,20 +25,10 @@ class GridWithButtons extends React.Component {
   }
 
   componentDidMount() {
-    // const user = this.state.polls.author
-    // // getPolls(user).then(
-    // //   function(res) {
-    // //     this.setState({
-    // //       allPolls: res
-    // //     })
-    // //   }.bind(this)
-    // // )
-
-    // !!!FOR TESTING - remove later
-    const userPolls = appData.polls.filter((poll) => poll.author === this.props.user)
-    this.setState({
-      polls: userPolls
-    });
+    const user = this.props.user
+    const changeState = arr => this.setState({ polls: arr })
+    const loadUserPolls = () => getPolls(user, changeState)
+    loadUserPolls()
   }
 
   handleDelete(index) {
@@ -75,12 +64,20 @@ class GridWithButtons extends React.Component {
                     rightIconButton={
                       <IconButton
                         tooltip="link to poll"
-                        onClick={this.handleClick.bind(null, `link/${item.author}-${item.pollname}`, item)}
+                        onClick={this.handleClick.bind(
+                          null,
+                          `link/${item.author}-${item.pollname}`,
+                          item
+                        )}
                       >
                         <ContentLink />
                       </IconButton>
                     }
-                    onClick={this.handleClick.bind(null, `${item.author}-${item.pollname}`, item)}
+                    onClick={this.handleClick.bind(
+                      null,
+                      `${item.author}-${item.pollname}`,
+                      item
+                    )}
                   />
 
                   <div className="user-poll-buttons">
@@ -110,12 +107,20 @@ class GridWithButtons extends React.Component {
                     rightIconButton={
                       <IconButton
                         tooltip="link to poll"
-                        onClick={this.handleClick.bind(null, `link/${item.author}-${item.pollname}`, item)}
+                        onClick={this.handleClick.bind(
+                          null,
+                          `link/${item.author}-${item.pollname}`,
+                          item
+                        )}
                       >
                         <ContentLink />
                       </IconButton>
                     }
-                    onClick={this.handleClick.bind(null, `${item.author}-${item.pollname}`, item)}
+                    onClick={this.handleClick.bind(
+                      null,
+                      `${item.author}-${item.pollname}`,
+                      item
+                    )}
                   />
 
                   <div className="user-poll-buttons">

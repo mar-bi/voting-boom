@@ -12,7 +12,7 @@ const UserTabs = ({ match }) => (
       </div>
     </Tab>
     <Tab label="My Polls">
-      <GridWithButtons user={match.params.userId}/>
+      <GridWithButtons user={match.params.userId} />
     </Tab>
   </Tabs>
 )

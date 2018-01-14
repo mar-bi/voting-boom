@@ -2,7 +2,6 @@ import React from 'react'
 import Grid from './Grid'
 
 import { getPolls } from '../utils/request_helpers'
-import { appData } from '../utils/data'
 
 class AllPolls extends React.Component {
   constructor(props) {
@@ -13,18 +12,9 @@ class AllPolls extends React.Component {
   }
 
   componentDidMount() {
-    // getPolls().then(
-    //   function(res) {
-    //     this.setState({
-    //       allPolls: res
-    //     })
-    //   }.bind(this)
-    // )
-
-    // !!!FOR TESTING - remove later
-    this.setState({
-      allPolls: appData.polls
-    });
+    const changeState = arr => this.setState({ allPolls: arr })
+    const loadPolls = () => getPolls(undefined, changeState)
+    loadPolls()
   }
 
   render() {

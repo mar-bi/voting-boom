@@ -49,19 +49,17 @@ const Dashboard = props => (
 
 const Header = props => {
   const titleClick = () => props.history.push('/')
-  
+
   return (
     <div>
       <AppBar
-        title={<span
-          className="header-title"
-          onClick={titleClick}
-          >
+        title={
+          <span className="header-title" onClick={titleClick}>
             VotingBoom
-          </span>}
+          </span>
+        }
         iconElementRight={props.logged ? <Logged /> : <Login />}
         showMenuIconButton={false}
-
       />
       <Dashboard logged={props.logged} />
     </div>

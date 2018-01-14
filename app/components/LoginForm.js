@@ -45,8 +45,8 @@ class LoginForm extends React.Component {
   handleSubmit() {
     const { user_name, password } = this.state
     const data = { user_name, password }
-    //console.log(data)
-    sendAuthData('login', data )
+    console.log(data)
+    //sendAuthData('login', data)
     //add redirection to user/username
   }
 

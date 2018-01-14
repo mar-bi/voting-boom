@@ -7,7 +7,7 @@ import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import FlatButton from 'material-ui/FlatButton'
 
 //import { withRouter } from 'react-router-dom'
-const home =  'localhost:3000'
+const home = 'localhost:3000'
 
 const PollAddress = props => {
   const poll = props.location.state.poll
