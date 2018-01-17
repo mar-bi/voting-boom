@@ -1,67 +1,94 @@
-//'use strict'
-var path = require('path')
-var express = require('express')
-var router = express.Router()
+'use strict'
 var data = require('./utils/data.json')
 
+module.exports = function (app, passport) {
 //-------------------------------POST-------------------
-//receive login form data
-router.post('/login', function(req, res, next) {
-  var login_data = req.body
-  console.log('Hello')
-  console.log(login_data.data)
-  res.json(login_data.data)
-})
 
-//receive signup form data
-router.post('/signup', function(req, res) {
-  var signup_data = req.body
-  console.log(signup_data)
-  res.json(signup_data.data)
-})
+  // LOGIN ==============================================
+  // process the login form
+  app.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('/login'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        return res.redirect('/user/' + user.username);
+      });
+    }) (req, res, next);
+  });
 
-//receive new poll data
-router.post('/addPoll', function(req, res) {
-  var new_poll = req.body
-  console.log(new_poll.data)
-  res.json(new_poll.data)
-})
+  // SIGNUP ==============================
+  app.post('/signup', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('/signup'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        return res.redirect('/user/' + user.username);
+      });
+    }) (req, res, next);
+  });
 
-//receive voting data
-router.post('/addVote', function(req, res) {
-  var new_vote = req.body
-  console.log(new_vote)
-  res.json(new_vote.data)
-})
+  //receive new poll data - PROTECTED
+  app.post('/addPoll', isLoggedIn, function(req, res) {
+    var new_poll = req.body
+    console.log(new_poll.data)
+    res.json(new_poll.data)
+  })
 
-//---------------------------------GET / Data Load--------------------
+  //receive voting data NOT PROTECTED
+  app.post('/addVote', function(req, res) {
+    var new_vote = req.body
+    console.log(new_vote)
+    res.json(new_vote.data)
+  })
 
-router.get('/api/getpolls', function(req, res) {
-  res.json(data)
-})
+  //---------------------------------GET / Data Load--------------------
 
-// mistake in route???
-router.get('/api/:user/getpolls', function(req, res) {
-  const user = req.params.user
-  const userPolls = data.polls.filter((poll) => poll.author === user)
-  res.json({ polls: userPolls })
-})
+  // LOGOUT ==============================
+  app.get('/logout', function(req, res) {
+      req.logout();
+      res.redirect('/');
+  });
 
-router.get('/api/getpoll/:pollId', function(req, res) {
-  const name = req.params.pollId;
-  //console.log(name);
-  const singlePoll = data.polls.filter((poll) => poll.pollname === name)
-  res.json(singlePoll[0]);
-})
+  app.get('/api/getpolls', function(req, res) {
+    res.json(data)
+  })
 
-//--------------------------------GET APP-----------------------------
+  // PROTECTED
+  app.get('/api/:user/getpolls', isLoggedIn, function(req, res) {
+    const user = req.params.user
+    const userPolls = data.polls.filter((poll) => poll.author === user)
+    res.json({ polls: userPolls })
+  })
 
-router.get('*', function(req, res) {
-  //console.log('sending app file')
-  res.sendFile(path.join(__dirname, '../dist/index.html'))
-})
 
-module.exports = router
+  app.get('/api/getpoll/:pollId', function(req, res) {
+    const name = req.params.pollId;
+    const singlePoll = data.polls.filter((poll) => poll.pollname === name)
+    res.json(singlePoll[0]);
+  })
+
+  //--------------------------------GET APP-----------------------------
+
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../dist/index.html'))
+  })
+
+};
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+
 
 /*  routes
 GET
@@ -70,9 +97,6 @@ GET
 - /api/getpoll/:pollId - get a single poll
 
 - / and *       - HomePage / make it last one
-
-???
-- /facebook - login with facebook --- later
 
 POST
 - /login

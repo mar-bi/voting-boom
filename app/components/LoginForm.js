@@ -22,17 +22,17 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_name: '',
+      email: '',
       password: ''
     }
-    this.handleLogin = this.handleLogin.bind(this)
+    this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleLogin(e, newVal) {
+  handleEmail(e, newVal) {
     this.setState({
-      user_name: newVal
+      email: newVal
     })
   }
 
@@ -43,10 +43,10 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit() {
-    const { user_name, password } = this.state
-    const data = { user_name, password }
-    console.log(data)
-    //sendAuthData('login', data)
+    const { email, password } = this.state
+    const data = { email, password }
+    //console.log(data)
+    sendAuthData('login', data)
     //add redirection to user/username
   }
 
@@ -55,10 +55,10 @@ class LoginForm extends React.Component {
       <div>
         <Paper zDepth={2} className="user-form">
           <TextField
-            floatingLabelText="User Name"
+            floatingLabelText="Email"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
-            onChange={this.handleLogin}
+            onChange={this.handleEmail}
           />
           <TextField
             floatingLabelText="Password"

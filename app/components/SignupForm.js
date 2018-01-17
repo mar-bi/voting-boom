@@ -23,12 +23,12 @@ class SignupForm extends React.Component {
     super(props)
     this.state = {
       name: '',
-      user_name: '',
+      email: '',
       password: ''
     }
 
     this.handleName = this.handleName.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
+    this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -39,9 +39,9 @@ class SignupForm extends React.Component {
     })
   }
 
-  handleLogin(e, newVal) {
+  handleEmail(e, newVal) {
     this.setState({
-      user_name: newVal
+      email: newVal
     })
   }
 
@@ -52,9 +52,9 @@ class SignupForm extends React.Component {
   }
 
   handleSubmit() {
-    const { name, user_name, password } = this.state
-    const data = { name, user_name, password }
-    console.log(data)
+    const { name, email, password } = this.state
+    const data = { name, email, password }
+    //console.log(data)
     sendAuthData('signup', data)
     //add redirection to user/username
   }
@@ -70,10 +70,10 @@ class SignupForm extends React.Component {
             onChange={this.handleName}
           />
           <TextField
-            floatingLabelText="User Name"
+            floatingLabelText="Email"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
-            onChange={this.handleLogin}
+            onChange={this.handleEmail}
           />
           <TextField
             floatingLabelText="Password"
