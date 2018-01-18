@@ -23,11 +23,13 @@ class SinglePoll extends React.Component {
     super(props)
     this.state = {
       poll: {
+        _id: '',
         pollname: '',
         author: '',
         question: '',
         answers: [],
         link: '',
+        votes: []
       },
       vote: ''
     }
@@ -54,13 +56,12 @@ class SinglePoll extends React.Component {
   }
 
   sendVote(e) {
-    const poll = this.state.poll
     const vote = {
-      pollname: poll.pollname,
-      author: poll.author,
-      question: poll.question,
-      option: this.state.vote,
-      value: 1
+      _id: this.state.poll._id,
+      votes: {
+        option: this.state.vote,
+        num: 1
+      }
     }
     sendPollData('addVote', vote, this.props.history.push(`/polls/results/${poll.pollname}`))
   }

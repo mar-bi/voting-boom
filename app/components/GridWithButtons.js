@@ -66,7 +66,7 @@ class GridWithButtons extends React.Component {
                         tooltip="link to poll"
                         onClick={this.handleClick.bind(
                           null,
-                          `link/${item.author}-${item.pollname}`,
+                          `link/${item.pollname}`,
                           item
                         )}
                       >
@@ -75,13 +75,13 @@ class GridWithButtons extends React.Component {
                     }
                     onClick={this.handleClick.bind(
                       null,
-                      `${item.author}-${item.pollname}`,
+                      `${item.pollname}`,
                       item
                     )}
                   />
 
                   <div className="user-poll-buttons">
-                    <Link to={`/polls/results/${item.pollname}${index}`}>
+                    <Link to={`/polls/results/${item.pollname}`}>
                       <FlatButton
                         backgroundColor="#00BCD4"
                         label="results"
@@ -109,7 +109,7 @@ class GridWithButtons extends React.Component {
                         tooltip="link to poll"
                         onClick={this.handleClick.bind(
                           null,
-                          `link/${item.author}-${item.pollname}`,
+                          `link/${item.pollname}`,
                           item
                         )}
                       >
@@ -118,13 +118,13 @@ class GridWithButtons extends React.Component {
                     }
                     onClick={this.handleClick.bind(
                       null,
-                      `${item.author}-${item.pollname}`,
+                      `${item.pollname}`,
                       item
                     )}
                   />
 
                   <div className="user-poll-buttons">
-                    <Link to={`/polls/results/${item.pollname}${index}`}>
+                    <Link to={`/polls/results/${item.pollname}`}>
                       <FlatButton
                         backgroundColor="#00BCD4"
                         label="results"
