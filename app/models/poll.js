@@ -7,9 +7,12 @@ var pollSchema = mongoose.Schema({
   author: String,
   question: String,
   answers: [String],
-  link: String
+  link: String,
+  votes: [{
+    option: String,
+    num: Number
+  }]
 });
 
-var pollResults = mongoose.Schema({
-  poll: ''
-});
+// create the poll model
+module.exports = mongoose.model('Poll', pollSchema);

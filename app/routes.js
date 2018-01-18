@@ -7,6 +7,7 @@ module.exports = function (app, passport) {
   // LOGIN ==============================================
   // process the login form
   app.post('/login', function(req, res, next) {
+    // go to username
     passport.authenticate('local-login', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) { return res.redirect('/login'); }
