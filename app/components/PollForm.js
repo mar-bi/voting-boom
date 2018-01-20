@@ -1,13 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import ContentClear from 'material-ui/svg-icons/content/clear'
-
+import { withRouter } from 'react-router-dom'
 import { sendPollData } from '../utils/request_helpers'
 
+const home = 'localhost:3000/'
 const style = {
   input: { marginLeft: 20 },
   label: { color: '#fff' }
@@ -21,9 +23,9 @@ class PollForm extends React.Component {
     this.state = {
       num_options: 2,
       hint_text: ['Unicorn', 'Polar Bear', 'Parrot', 'Dragon', 'Turtle'],
-      poll_name: '',
-      poll_question: '',
-      poll_options: [],
+      pollname: '',
+      question: '',
+      answers: [],
       warning: ''
     }
 
@@ -45,35 +47,35 @@ class PollForm extends React.Component {
 
   deleteOption(i) {
     const num_options = this.state['num_options'] - 1
-    let arr = this.state['poll_options'].slice()
+    let arr = this.state['answers'].slice()
     arr.splice(i, 1)
 
     console.log(arr)
 
     this.setState({
       num_options: num_options,
-      poll_options: arr
+      answers: arr
     })
   }
 
   handlePollName(e, newVal) {
     this.setState({
-      poll_name: newVal
+      pollname: newVal
     })
   }
 
   handlePollQuestion(e, newVal) {
     this.setState({
-      poll_question: newVal
+      question: newVal
     })
   }
 
   handleOption(newVal, i) {
-    let arr = this.state['poll_options'].slice()
+    let arr = this.state['answers'].slice()
     arr[i] = newVal
 
     this.setState({
-      poll_options: arr
+      answers: arr
     })
   }
 
@@ -90,13 +92,23 @@ class PollForm extends React.Component {
   }
 
   submitPoll() {
-    const { poll_name, poll_question, poll_options } = this.state
-    if (poll_name && poll_question && poll_options.length > 1) {
-      const data = { poll_name, poll_question, poll_options }
-      console.log(data)
-      sendPollData('addPoll', data)
+    const author = this.props.user
+    const { pollname, question, answers } = this.state
+    const link = `${home}polls/${pollname}/`
+
+    if (pollname && question && answers.length > 1) {
+      const data = { pollname, author, question, answers, link }
+
+      const redirect = result => {
+        const location = {
+          pathname: `/polls/${result.pollname}`,
+          state: { poll: result }
+        }
+        this.props.history.push(location)
+      }
+      sendPollData('api/addPoll', data, redirect)
     } else {
-      this.pollValidator(poll_name, poll_question, poll_options)
+      this.pollValidator(pollname, question, answers)
     }
   }
 
@@ -169,4 +181,8 @@ class PollForm extends React.Component {
     )
   }
 }
-export default PollForm
+
+PollForm.propTypes = {
+  user: PropTypes.string.isRequired
+}
+export default withRouter(PollForm)

@@ -5,7 +5,7 @@ import { List, ListItem } from 'material-ui/List'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import ContentLink from 'material-ui/svg-icons/content/link'
-import { getPolls } from '../utils/request_helpers'
+import { getPolls, deletePoll } from '../utils/request_helpers'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -32,12 +32,14 @@ class GridWithButtons extends React.Component {
   }
 
   handleDelete(index) {
-    let arr = this.state.polls.slice()
-    arr.splice(index, 1)
-    //console.log(arr)
-    this.setState({
-      polls: arr
-    })
+    let arr = [...this.state.polls]
+    const poll = arr[index]
+    const changeState = result => this.setState({ polls: result })
+    const updatePolls = () => deletePoll({
+      _id: poll._id,
+      author: poll.author
+    }, changeState)
+    updatePolls()
   }
 
   handleClick(route, item) {
