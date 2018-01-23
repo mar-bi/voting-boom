@@ -8,9 +8,9 @@ export function sendPollData(str, data, callback) {
   axios
     .post(url, data)
     .then(function(response) {
-      //console.log(response)
+      console.log(response.data)
       if (callback) {
-        callback()
+        callback(response.data)
       }
     })
     .catch(function(error) {
@@ -39,7 +39,8 @@ export function getPolls(user, callback) {
   axios
     .get(url)
     .then(function(response) {
-      callback(response.data.polls)
+      //console.log(response.data)
+      callback(response.data)
     })
     .catch(function(error) {
       console.log(error)
@@ -53,6 +54,21 @@ export function getPoll(name, callback) {
     .get(url)
     .then(function(response) {
       callback(response.data)
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+}
+
+// callback is for purpose of redirection
+export function deletePoll(data, callback) {
+  const url = `${home}api/deletePoll`
+  axios
+    .post(url, data)
+    .then(function(response) {
+      if (callback) {
+        callback(response.data)
+      }
     })
     .catch(function(error) {
       console.log(error)

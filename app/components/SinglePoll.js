@@ -56,14 +56,19 @@ class SinglePoll extends React.Component {
   }
 
   sendVote(e) {
+    const poll = this.state.poll
     const vote = {
-      _id: this.state.poll._id,
-      votes: {
-        option: this.state.vote,
-        num: 1
-      }
+      _id: poll._id,
+      option: this.state.vote
     }
-    sendPollData('addVote', vote, this.props.history.push(`/polls/results/${poll.pollname}`))
+    const redirect = result => {
+      const location = {
+        pathname: `/polls/results/${poll.pollname}`,
+        state: { poll: result }
+      }
+      this.props.history.push(location)
+    }
+    sendPollData('api/addVote', vote, redirect)
   }
 
   render() {
