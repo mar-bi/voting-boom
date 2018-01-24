@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import ContentLink from 'material-ui/svg-icons/content/link'
 import { getPolls, deletePoll } from '../utils/request_helpers'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const styles = {
@@ -83,13 +83,17 @@ class GridWithButtons extends React.Component {
                   />
 
                   <div className="user-poll-buttons">
-                    <Link to={`/polls/results/${item.pollname}`}>
-                      <FlatButton
-                        backgroundColor="#00BCD4"
-                        label="results"
-                        labelStyle={styles.label}
-                      />
-                    </Link>
+                    <FlatButton
+                      backgroundColor="#00BCD4"
+                      label="results"
+                      labelStyle={styles.label}
+                      onClick={this.handleClick.bind(
+                        null,
+                        `results/${item.pollname}`,
+                        item
+                      )}
+                    />
+
                     <FlatButton
                       backgroundColor="#EC407A"
                       label="Delete"
@@ -126,13 +130,17 @@ class GridWithButtons extends React.Component {
                   />
 
                   <div className="user-poll-buttons">
-                    <Link to={`/polls/results/${item.pollname}`}>
-                      <FlatButton
-                        backgroundColor="#00BCD4"
-                        label="results"
-                        labelStyle={styles.label}
-                      />
-                    </Link>
+                    <FlatButton
+                      backgroundColor="#00BCD4"
+                      label="results"
+                      labelStyle={styles.label}
+                      onClick={this.handleClick.bind(
+                        null,
+                        `results/${item.pollname}`,
+                        item
+                      )}
+                    />
+
                     <FlatButton
                       backgroundColor="#EC407A"
                       label="Delete"

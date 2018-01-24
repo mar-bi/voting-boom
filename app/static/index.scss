@@ -203,6 +203,14 @@ a {
       color: $text_color;
     }
   }
+  svg {
+    display: block;
+    margin: 0.5em auto;
+    color: $text_color;
+    text {
+      font-size: 1.2em;
+    }
+  }
 }
 
 .del-button {

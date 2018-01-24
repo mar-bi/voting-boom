@@ -9,9 +9,9 @@ const renderRect = props => {
     const rectProps = {
       fill: '#00BCD4',
       width: props.xScale.bandwidth(),
-      height: props.yScale(elem),
+      height: props.yScale(elem) || 0,
       x: props.xScale(index),
-      y: props.height - props.yScale(elem),
+      y: props.height - props.yScale(elem) || 0,
       key: index
     }
     return <rect {...rectProps} />;
