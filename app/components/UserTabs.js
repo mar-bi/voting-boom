@@ -8,7 +8,7 @@ const UserTabs = ({ match }) => (
   <Tabs className="user-tabs">
     <Tab label="New Poll">
       <div>
-        <PollForm user={match.params.userId}/>
+        <PollForm user={match.params.userId} />
       </div>
     </Tab>
     <Tab label="My Polls">

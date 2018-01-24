@@ -35,10 +35,14 @@ class GridWithButtons extends React.Component {
     let arr = [...this.state.polls]
     const poll = arr[index]
     const changeState = result => this.setState({ polls: result })
-    const updatePolls = () => deletePoll({
-      _id: poll._id,
-      author: poll.author
-    }, changeState)
+    const updatePolls = () =>
+      deletePoll(
+        {
+          _id: poll._id,
+          author: poll.author
+        },
+        changeState
+      )
     updatePolls()
   }
 

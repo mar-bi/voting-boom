@@ -8,7 +8,7 @@ export function sendPollData(str, data, callback) {
   axios
     .post(url, data)
     .then(function(response) {
-      console.log(response.data)
+      //console.log(response.data)
       if (callback) {
         callback(response.data)
       }
@@ -24,7 +24,6 @@ export function sendAuthData(str, data, callback) {
   axios
     .post(url, data)
     .then(function(response) {
-      //console.log(response)
       if (callback) {
         callback()
       }
@@ -49,7 +48,7 @@ export function getPolls(user, callback) {
 
 export function getPoll(name, callback) {
   const url = `${home}api/getpoll/${name}`
-  console.log(url)
+  //console.log(url)
   axios
     .get(url)
     .then(function(response) {

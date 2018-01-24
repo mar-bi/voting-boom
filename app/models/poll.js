@@ -1,5 +1,5 @@
 // poll model
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
 
 // define the schema for the poll model
 var pollSchema = mongoose.Schema({
@@ -8,11 +8,13 @@ var pollSchema = mongoose.Schema({
   question: String,
   answers: [String],
   link: String,
-  votes: [{
-    option: String,
-    num: Number
-  }]
-});
+  votes: [
+    {
+      option: String,
+      num: Number
+    }
+  ]
+})
 
 // create the poll model
-module.exports = mongoose.model('Poll', pollSchema);
+module.exports = mongoose.model('Poll', pollSchema)

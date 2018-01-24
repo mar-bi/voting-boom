@@ -40,9 +40,11 @@ class SinglePoll extends React.Component {
 
   componentDidMount() {
     const poll = this.props.location.state || false
-    if (poll){ // from location
+    if (poll) {
+      // from location
       this.setState({ poll: this.props.location.state.poll })
-    } else { // from DB
+    } else {
+      // from DB
       const pollName = this.props.match.params.pollId
       const changeState = poll => this.setState({ poll: poll })
       const loadPoll = () => getPoll(pollName, changeState)
@@ -72,7 +74,7 @@ class SinglePoll extends React.Component {
     sendPollData('api/addVote', vote, redirect)
   }
 
-  returnBack(){
+  returnBack() {
     this.props.history.goBack()
   }
 
