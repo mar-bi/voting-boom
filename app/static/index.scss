@@ -179,11 +179,23 @@ a {
   }
 }
 
+.vote-buttons-container {
+  width: 60%;
+  margin: 0 auto;
+  @media screen and (max-width: $mediumscreen) {
+    width: 100%;
+  }
+}
+
 .vote-button {
-  display: block !important;
+  display: inline-block !important;
   width: 45% !important;
   margin: 0 auto !important;
   margin-top: 1em !important;
+
+  &:first-child {
+    margin-right: 10px !important;
+  }
 }
 
 .user-poll-buttons {

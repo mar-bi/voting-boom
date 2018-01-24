@@ -35,6 +35,7 @@ class SinglePoll extends React.Component {
     }
     this.handleVote = this.handleVote.bind(this)
     this.sendVote = this.sendVote.bind(this)
+    this.returnBack = this.returnBack.bind(this)
   }
 
   componentDidMount() {
@@ -71,6 +72,10 @@ class SinglePoll extends React.Component {
     sendPollData('api/addVote', vote, redirect)
   }
 
+  returnBack(){
+    this.props.history.goBack()
+  }
+
   render() {
     const poll = this.state.poll
     return (
@@ -103,15 +108,24 @@ class SinglePoll extends React.Component {
             </div>
           </div>
         </Paper>
-
-        <FlatButton
-          backgroundColor="#00BCD4"
-          label="vote"
-          className="vote-button"
-          labelStyle={styles.label}
-          hoverColor="#EC407A"
-          onClick={this.sendVote}
-        />
+        <div className="vote-buttons-container">
+          <FlatButton
+            backgroundColor="#00BCD4"
+            label="vote"
+            className="vote-button"
+            labelStyle={styles.label}
+            hoverColor="#EC407A"
+            onClick={this.sendVote}
+          />
+          <FlatButton
+            backgroundColor="#757575"
+            label="back"
+            className="vote-button"
+            labelStyle={styles.label}
+            hoverColor="#EC407A"
+            onClick={this.returnBack}
+          />
+        </div>
       </div>
     )
   }
