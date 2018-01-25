@@ -55,8 +55,16 @@ class SignupForm extends React.Component {
     const { name, email, password } = this.state
     const data = { name, email, password }
     //console.log(data)
-    sendAuthData('signup', data)
-    //add redirection to user/username
+
+    const redirect = result => {
+      console.log(result.path)
+      const location = {
+        pathname: result.path
+      }
+      this.props.history.push(location)
+    }
+
+    sendAuthData('signup', data, redirect)
   }
 
   render() {
@@ -79,6 +87,7 @@ class SignupForm extends React.Component {
             floatingLabelText="Password"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
+            type="password"
             onChange={this.handlePassword}
           />
         </Paper>

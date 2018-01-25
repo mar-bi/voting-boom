@@ -64,6 +64,7 @@ class LoginForm extends React.Component {
             floatingLabelText="Password"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
+            type="password"
             onChange={this.handlePassword}
           />
         </Paper>
