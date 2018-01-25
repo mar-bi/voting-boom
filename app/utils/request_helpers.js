@@ -8,7 +8,6 @@ export function sendPollData(str, data, callback) {
   axios
     .post(url, data)
     .then(function(response) {
-      //console.log(response.data)
       if (callback) {
         callback(response.data)
       }
@@ -19,13 +18,17 @@ export function sendPollData(str, data, callback) {
 }
 
 // callback is for purpose of redirection
-export function sendAuthData(str, data, callback) {
+export function sendAuthData(str, data, errorCB, successCB) {
   const url = home + str
   axios
     .post(url, data)
     .then(function(response) {
-      if (callback) {
-        callback()
+      //console.log(response)
+      if (!response.data.success){
+        errorCB(response.data)
+      } else {
+        //console.log(response.data)
+        successCB(response.data)
       }
     })
     .catch(function(error) {
@@ -35,6 +38,7 @@ export function sendAuthData(str, data, callback) {
 
 export function getPolls(user, callback) {
   const url = user ? home + `api/${user}/getpolls` : home + 'api/getpolls'
+  //console.log(url)
   axios
     .get(url)
     .then(function(response) {

@@ -24,7 +24,8 @@ class LoginForm extends React.Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errors: {}
     }
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
@@ -47,11 +48,22 @@ class LoginForm extends React.Component {
     const { email, password } = this.state
     const data = { email, password }
     //console.log(data)
-    sendAuthData('login', data)
-    //add redirection to user/username
+    const redirect = result => {
+      //console.log(result.path)
+      const location = {
+        pathname: result.path
+      }
+      this.props.history.push(location)
+    }
+
+    const errorResponse = data => {
+      this.setState({ errors: data.errors })
+    }
+    sendAuthData('login', data, errorResponse, redirect)
   }
 
   render() {
+    const errors = this.state.errors
     return (
       <Paper zDepth={2} className="user-form">
         <div className="form-fields">
@@ -59,6 +71,7 @@ class LoginForm extends React.Component {
             floatingLabelText="Email"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
+            errorText={errors.email}
             onChange={this.handleEmail}
           />
           <TextField
@@ -66,6 +79,7 @@ class LoginForm extends React.Component {
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
             type="password"
+            errorText={errors.password}
             onChange={this.handlePassword}
           />
         </div>

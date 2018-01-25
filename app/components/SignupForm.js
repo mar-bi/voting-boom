@@ -25,7 +25,8 @@ class SignupForm extends React.Component {
     this.state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      errors: {}
     }
 
     this.handleName = this.handleName.bind(this)
@@ -55,20 +56,23 @@ class SignupForm extends React.Component {
   handleSubmit() {
     const { name, email, password } = this.state
     const data = { name, email, password }
-    //console.log(data)
 
     const redirect = result => {
-      console.log(result.path)
+      //console.log(result.path)
       const location = {
         pathname: result.path
       }
       this.props.history.push(location)
     }
 
-    sendAuthData('signup', data, redirect)
+    const errorResponse = data => {
+      this.setState({ errors: data.errors })
+    }
+    sendAuthData('signup', data, errorResponse, redirect)
   }
 
   render() {
+    const errors = this.state.errors
     return (
       <Paper zDepth={2} className="user-form">
         <div className="form-fields">
@@ -77,12 +81,14 @@ class SignupForm extends React.Component {
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
             onChange={this.handleName}
+            errorText={errors.name}
           />
           <TextField
             floatingLabelText="Email"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
             fullWidth={true}
             onChange={this.handleEmail}
+            errorText={errors.email}
           />
           <TextField
             floatingLabelText="Password"
@@ -90,6 +96,7 @@ class SignupForm extends React.Component {
             fullWidth={true}
             type="password"
             onChange={this.handlePassword}
+            errorText={errors.password}
           />
         </div>
         <FlatButton
