@@ -125,6 +125,7 @@ class PollForm extends React.Component {
           <TextField
             hintText="Favourite pet"
             underlineShow={false}
+            fullWidth={true}
             style={style.input}
             onChange={this.handlePollName}
           />
@@ -133,6 +134,7 @@ class PollForm extends React.Component {
           <TextField
             hintText="What is your favourite pet?"
             underlineShow={false}
+            fullWidth={true}
             style={style.input}
             onChange={this.handlePollQuestion}
           />
@@ -146,6 +148,7 @@ class PollForm extends React.Component {
               <TextField
                 hintText={placeholders[i] || 'Anything'}
                 underlineShow={false}
+                fullWidth={true}
                 style={style.input}
                 onChange={(e, newVal) => this.handleOption(newVal, i)}
               />
