@@ -87,13 +87,6 @@ a {
   }
 }
 
-.poll-label {
-  margin-left: 20px !important;
-  @media screen and (max-width: $mediumscreen) {
-    margin: 16px 0 0 20px !important;
-  }
-}
-
 .poll-divider {
   @media screen and (max-width: $mediumscreen) {
     margin-bottom: 12px !important;
@@ -103,6 +96,7 @@ a {
 .poll-form-buttons {
   width: 60%;
   margin: 0 auto;
+  margin-top: 2.3em;
   @media screen and (max-width: $mediumscreen) {
     width: 100%;
   }
@@ -182,6 +176,7 @@ a {
 .vote-buttons-container {
   width: 60%;
   margin: 0 auto;
+  margin-top: 2.3em;
   @media screen and (max-width: $mediumscreen) {
     width: 100%;
   }
@@ -233,12 +228,25 @@ a {
   font-size: 1.2em;
   color: $warning_color;
   text-align: center;
+  margin-top: 0.5em;
 }
 
 .user-form {
   @extend .user-tabs;
   padding: 16px 20px !important;
   margin: 30px auto !important;
+  .form-fields {
+    margin: 1em 1em 3em 1em;
+  }
+  button {
+    margin-top: 1em !important;
+  }
+  p {
+    font-size: 1.2em;
+    color: $text_color;
+    text-align: center;
+    margin-top: 2em;
+  }
 }
 
 .not-found {

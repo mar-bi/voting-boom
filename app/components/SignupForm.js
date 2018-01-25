@@ -3,6 +3,7 @@ import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import { Link } from 'react-router-dom'
 import { sendAuthData } from '../utils/request_helpers'
 
 const style = {
@@ -69,8 +70,8 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <Paper zDepth={2} className="user-form">
+      <Paper zDepth={2} className="user-form">
+        <div className="form-fields">
           <TextField
             floatingLabelText="Name"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}
@@ -90,7 +91,7 @@ class SignupForm extends React.Component {
             type="password"
             onChange={this.handlePassword}
           />
-        </Paper>
+        </div>
         <FlatButton
           backgroundColor="#00BCD4"
           style={style.button}
@@ -98,7 +99,11 @@ class SignupForm extends React.Component {
           hoverColor="#EC407A"
           onClick={this.handleSubmit}
         />
-      </div>
+
+        <p>Already have an account? <Link to="/login">Log in</Link></p>
+      </Paper>
+
+
     )
   }
 }

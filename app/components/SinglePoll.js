@@ -109,25 +109,25 @@ class SinglePoll extends React.Component {
               </RadioButtonGroup>
             </div>
           </div>
+          <div className="vote-buttons-container">
+            <FlatButton
+              backgroundColor="#00BCD4"
+              label="vote"
+              className="vote-button"
+              labelStyle={styles.label}
+              hoverColor="#EC407A"
+              onClick={this.sendVote}
+            />
+            <FlatButton
+              backgroundColor="#757575"
+              label="back"
+              className="vote-button"
+              labelStyle={styles.label}
+              hoverColor="#EC407A"
+              onClick={this.returnBack}
+            />
+          </div>
         </Paper>
-        <div className="vote-buttons-container">
-          <FlatButton
-            backgroundColor="#00BCD4"
-            label="vote"
-            className="vote-button"
-            labelStyle={styles.label}
-            hoverColor="#EC407A"
-            onClick={this.sendVote}
-          />
-          <FlatButton
-            backgroundColor="#757575"
-            label="back"
-            className="vote-button"
-            labelStyle={styles.label}
-            hoverColor="#EC407A"
-            onClick={this.returnBack}
-          />
-        </div>
       </div>
     )
   }

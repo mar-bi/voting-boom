@@ -12,7 +12,10 @@ import { sendPollData } from '../utils/request_helpers'
 const home = 'localhost:3000/'
 const style = {
   input: { marginLeft: 20 },
-  label: { color: '#fff' }
+  label: { color: '#fff' },
+  floatingLabelStyle: {color: '#00BCD4', fontSize: '1.125em'},
+  line: {marginLeft: 20, width: '80%'},
+  paper: {padding: '1em'}
 }
 
 const Warning = props => <h4 className="warning">{props.message}</h4>
@@ -118,24 +121,26 @@ class PollForm extends React.Component {
       message = this.state.warning
 
     return (
-      <div>
+      <Paper zDepth={3} style={style.paper}>
         <Warning message={message} />
         <Paper zDepth={2} className="poll-form">
-          <span className="poll-label">Name of poll:</span>
           <TextField
             hintText="Favourite pet"
+            floatingLabelText="Name of poll"
             underlineShow={false}
             fullWidth={true}
+            floatingLabelStyle={style.floatingLabelStyle}
             style={style.input}
             onChange={this.handlePollName}
           />
           <Divider className="poll-divider" />
-          <span className="poll-label">Question:</span>
+
           <TextField
             hintText="What is your favourite pet?"
+            floatingLabelText="Question"
             underlineShow={false}
             fullWidth={true}
-            style={style.input}
+            floatingLabelStyle={style.floatingLabelStyle}            style={style.input}
             onChange={this.handlePollQuestion}
           />
           <Divider className="poll-divider" />
@@ -144,12 +149,12 @@ class PollForm extends React.Component {
         <Paper zDepth={2} className="poll-form">
           {arr.map((el, i) => (
             <div key={`opt-${i}`}>
-              <span className="poll-label">{`Answer ${i + 1}`}:</span>
               <TextField
                 hintText={placeholders[i] || 'Anything'}
+                floatingLabelText={`Answer ${i + 1}`}
                 underlineShow={false}
-                fullWidth={true}
-                style={style.input}
+                floatingLabelStyle={style.floatingLabelStyle}
+                style={style.line}
                 onChange={(e, newVal) => this.handleOption(newVal, i)}
               />
               <IconButton
@@ -180,7 +185,7 @@ class PollForm extends React.Component {
             onClick={this.submitPoll}
           />
         </div>
-      </div>
+      </Paper>
     )
   }
 }
