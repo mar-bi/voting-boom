@@ -2,6 +2,7 @@
 //set up-------------------------------------------------------
 
 var express = require('express')
+var mongoose = require('mongoose')
 var path = require('path')
 var cors = require('cors')
 var passport = require('passport') //create passport object
@@ -10,16 +11,20 @@ var flash = require('connect-flash')
 var morgan = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var session = require('express-session')
+//var session = require('express-session')
 
 var app = express()
-var routes = require('./routes.js')
-require('dotenv').load()
+require('dotenv').config()
 
-var configDB = require('./config/database.js')
+var configDB = process.env.LOCAL_MONGODB
+var Poll = require('./app/models/poll.js')
+var options = {
+  useMongoClient: true,
+  autoIndex: false
+}
 
 //configuration-----------------------------------------
-mongoose.connect(configDB.url)
+mongoose.connect(configDB.url, options)
 require('./config/passport')(passport)
 
 // set up an express app
@@ -32,13 +37,20 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, '../dist')))
 
 // required for passport-------------------------------------------
-app.use(session({ secret: 'sleepy unicorn' }))  // session secret???
 app.use(passport.initialize())
-app.use(passport.session())
 app.use(flash())
 
+// pass the authenticaion checker middleware--------------------------
+const authCheckMiddleware = require('./auth-check')
+app.use('/api/private', authCheckMiddleware)
+
 // routes --------------------------------------------------------------
-routes(app, passport);
+var authRoutes = require('./routes/auth')
+var apiPublicRoutes = require('./routes/apiPublic')
+var apiPrivateRoutes = require('./routes/apiPrivate')
+app.use('/auth', authRoutes)
+app.use('/api/public', apiPublicRoutes)
+app.use('/api/private', apiPrivateRoutes)
 
 // launch ---------------------------------------------
 var port = process.env.PORT || 3000

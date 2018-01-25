@@ -8,13 +8,14 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
+//var session = require('express-session');
 
 var app = express();
-var routes = require('./routes.js');
-var configDB = require('./app/config/database.js');
+require('dotenv').config();
+
+var configDB = process.env.LOCAL_MONGODB;
 var Poll = require('./app/models/poll.js');
-const options = {
+var options = {
   useMongoClient: true,
   autoIndex: false
 };
@@ -28,13 +29,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// required for passport-------------------------------------------
-app.use(session({ secret: 'sleepy unicorn' })) // session secret???
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
 
-routes(app, passport);
+// required for passport-------------------------------------------
+app.use(passport.initialize());
+app.use(flash());
+
+// pass the authenticaion checker middleware--------------------------
+const authCheckMiddleware = require('./app/auth-check');
+app.use('/api/private', authCheckMiddleware);
+
+// routes --------------------------------------------------------------
+var authRoutes = require('./app/routes/auth');
+var apiPublicRoutes = require('./app/routes/apiPublic');
+var apiPrivateRoutes = require('./app/routes/apiPrivate');
+app.use('/auth', authRoutes);
+app.use('/api/public', apiPublicRoutes);
+app.use('/api/private', apiPrivateRoutes);
 
 
 // // using DB
