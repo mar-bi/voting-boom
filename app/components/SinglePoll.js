@@ -71,7 +71,7 @@ class SinglePoll extends React.Component {
       }
       this.props.history.push(location)
     }
-    sendPollData('api/addVote', vote, redirect)
+    sendPollData('api/public/addVote', vote, redirect)
   }
 
   returnBack() {

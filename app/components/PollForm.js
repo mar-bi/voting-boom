@@ -109,7 +109,7 @@ class PollForm extends React.Component {
         }
         this.props.history.push(location)
       }
-      sendPollData('api/addPoll', data, redirect)
+      sendPollData('api/private/addPoll', data, redirect)
     } else {
       this.pollValidator(pollname, question, answers)
     }

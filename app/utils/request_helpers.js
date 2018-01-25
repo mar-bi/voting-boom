@@ -3,6 +3,7 @@ import axios from 'axios'
 const home = 'http://localhost:3000/'
 
 // callback is for purpose of redirection
+// create poll and vote
 export function sendPollData(str, data, callback) {
   const url = home + str
   axios
@@ -19,7 +20,7 @@ export function sendPollData(str, data, callback) {
 
 // callback is for purpose of redirection
 export function sendAuthData(str, data, errorCB, successCB) {
-  const url = home + str
+  const url = home + '/auth/' + str
   axios
     .post(url, data)
     .then(function(response) {
@@ -37,7 +38,9 @@ export function sendAuthData(str, data, errorCB, successCB) {
 }
 
 export function getPolls(user, callback) {
-  const url = user ? home + `api/${user}/getpolls` : home + 'api/getpolls'
+  const url = user
+    ? home + `api/private/${user}/getpolls`
+    : home + 'api/public/getpolls'
   //console.log(url)
   axios
     .get(url)
@@ -51,7 +54,7 @@ export function getPolls(user, callback) {
 }
 
 export function getPoll(name, callback) {
-  const url = `${home}api/getpoll/${name}`
+  const url = `${home}api/public/getpoll/${name}`
   //console.log(url)
   axios
     .get(url)
@@ -65,7 +68,7 @@ export function getPoll(name, callback) {
 
 // callback is for purpose of redirection
 export function deletePoll(data, callback) {
-  const url = `${home}api/deletePoll`
+  const url = `${home}api/private/deletePoll`
   axios
     .post(url, data)
     .then(function(response) {
