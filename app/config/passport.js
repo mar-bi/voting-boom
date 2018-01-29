@@ -1,7 +1,7 @@
 //configuring the strategies for passport
 'use strict'
 
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 var LocalStrategy = require('passport-local').Strategy
 var User = require('../models/user')
 require('dotenv').config()
@@ -28,10 +28,11 @@ module.exports = function(passport) {
         passReqToCallback: true
       },
       function(req, email, password, done) {
-        User.findOne({ 'email': email }, function(err, user) {
+        User.findOne({ email: email }, function(err, user) {
           if (err) {
             return done(err)
-          } if (user) {
+          }
+          if (user) {
             return done(
               null,
               false,
@@ -82,7 +83,9 @@ module.exports = function(passport) {
         }
 
         User.findOne({ email: userData.email }, function(err, user) {
-          if (err) { return done(err) }
+          if (err) {
+            return done(err)
+          }
           if (!user) {
             return done(
               null,

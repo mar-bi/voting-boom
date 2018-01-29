@@ -19,20 +19,29 @@ import PollAddress from './components/PollAddress'
 import Auth from './utils/Auth'
 
 // import react router deps
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    Auth.isUserAuthenticated() ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
-    )
-  )}/>
+  <Route
+    {...rest}
+    render={props =>
+      Auth.isUserAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
 )
 
 const App = () => (

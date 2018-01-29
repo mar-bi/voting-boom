@@ -9,7 +9,7 @@ const home = 'http://localhost:3000/'
 export function createPoll(data, callback) {
   const url = `${home}api/private/addPoll`
   const config = {
-    headers: {'Authorization': `bearer ${Auth.getToken()}`}
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
   }
 
   axios
@@ -50,7 +50,7 @@ export function sendAuthData(str, data, errorCB, successCB) {
     .then(function(response) {
       //@response.data {object {success, token, user, path}}
       //console.log(response)
-      if (!response.data.success){
+      if (!response.data.success) {
         errorCB(response.data)
       } else {
         //console.log(response.data)
@@ -66,7 +66,7 @@ export function sendAuthData(str, data, errorCB, successCB) {
 export function changePassword(data, errorCB, successCB) {
   const url = `${home}api/private/changePassword`
   const config = {
-    headers: {'Authorization': `bearer ${Auth.getToken()}`}
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
   }
 
   axios
@@ -74,7 +74,7 @@ export function changePassword(data, errorCB, successCB) {
     .then(function(response) {
       //@response.data {object {success, message}}
       //console.log(response)
-      if (!response.data.success){
+      if (!response.data.success) {
         errorCB(response.data)
       } else {
         //console.log(response.data)
@@ -91,7 +91,7 @@ export function getPolls(user, callback) {
     ? home + `api/private/${user}/getpolls`
     : home + 'api/public/getpolls'
   const config = user
-    ? { headers: {'Authorization': `bearer ${Auth.getToken()}`} }
+    ? { headers: { Authorization: `bearer ${Auth.getToken()}` } }
     : {}
 
   axios
@@ -122,7 +122,7 @@ export function getPoll(name, callback) {
 export function deletePoll(data, callback) {
   const url = `${home}api/private/deletePoll`
   const config = {
-    headers: {'Authorization': `bearer ${Auth.getToken()}`}
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
   }
 
   axios

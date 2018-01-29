@@ -98,7 +98,9 @@ class LoginForm extends React.Component {
           hoverColor="#EC407A"
           onClick={this.handleSubmit}
         />
-        <p>Do not have an account? <Link to="/signup">Sign up</Link></p>
+        <p>
+          Do not have an account? <Link to="/signup">Sign up</Link>
+        </p>
       </Paper>
     )
   }

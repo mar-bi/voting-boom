@@ -27,7 +27,7 @@ const PollResults = props => {
         <div>
           <BarChart data={poll.votes} style={styles} />
         </div>
-        <Link to='/'>
+        <Link to="/">
           <FlatButton
             backgroundColor="#EC407A"
             label="home"

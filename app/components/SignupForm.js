@@ -115,10 +115,10 @@ class SignupForm extends React.Component {
           onClick={this.handleSubmit}
         />
 
-        <p>Already have an account? <Link to="/login">Log in</Link></p>
+        <p>
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
       </Paper>
-
-
     )
   }
 }

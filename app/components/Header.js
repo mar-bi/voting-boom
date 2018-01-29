@@ -36,14 +36,10 @@ const Logged = props => {
         <FlatButton label="Home" className="selected" />
       </NavLink>
       <NavLink to="/changepassword">
-        <FlatButton label="Change Password" className="selected"/>
+        <FlatButton label="Change Password" className="selected" />
       </NavLink>
 
-      <FlatButton
-        label="LogOut"
-        className="selected"
-        onClick={handleClick}
-      />
+      <FlatButton label="LogOut" className="selected" onClick={handleClick} />
     </div>
   )
 }
@@ -64,7 +60,9 @@ const MessageUser = () => {
   return (
     <div className="dashbord-message">
       <h1>Dashboard</h1>
-      <h4>Welcome <span>{user}</span></h4>
+      <h4>
+        Welcome <span>{user}</span>
+      </h4>
       <Link to={`/user/${user}`}>
         <FlatButton
           backgroundColor="#00BCD4"
@@ -80,10 +78,7 @@ const MessageUser = () => {
 
 const Dashboard = props => (
   <div className="banner">
-    {props.logged
-      ? <MessageUser />
-      : <MessageInit />
-    }
+    {props.logged ? <MessageUser /> : <MessageInit />}
   </div>
 )
 
@@ -102,9 +97,9 @@ const Header = props => {
             VotingBoom
           </span>
         }
-        iconElementRight={Auth.isUserAuthenticated()
-          ? <Logged logout={LogOut} />
-          : <Login />}
+        iconElementRight={
+          Auth.isUserAuthenticated() ? <Logged logout={LogOut} /> : <Login />
+        }
         showMenuIconButton={false}
       />
       <Dashboard logged={Auth.isUserAuthenticated()} />

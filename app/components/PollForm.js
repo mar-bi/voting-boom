@@ -13,9 +13,9 @@ const home = 'localhost:3000/'
 const style = {
   input: { marginLeft: 20 },
   label: { color: '#fff' },
-  floatingLabelStyle: {color: '#00BCD4', fontSize: '1.125em'},
-  line: {marginLeft: 20, width: '80%'},
-  paper: {padding: '1em'}
+  floatingLabelStyle: { color: '#00BCD4', fontSize: '1.125em' },
+  line: { marginLeft: 20, width: '80%' },
+  paper: { padding: '1em' }
 }
 
 const Warning = props => <h4 className="warning">{props.message}</h4>
@@ -141,7 +141,8 @@ class PollForm extends React.Component {
             floatingLabelText="Question"
             underlineShow={false}
             fullWidth={true}
-            floatingLabelStyle={style.floatingLabelStyle}            style={style.input}
+            floatingLabelStyle={style.floatingLabelStyle}
+            style={style.input}
             onChange={this.handlePollQuestion}
           />
           <Divider className="poll-divider" />
