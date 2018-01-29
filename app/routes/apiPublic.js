@@ -3,7 +3,7 @@ var router = express.Router()
 var Poll = require('../models/poll.js')
 
 //add votes
-app.post('/addVote', function(req, res) {
+router.post('/addVote', function(req, res) {
   const vote = req.body;
   const query = {"_id": vote._id, "votes.option": vote.option };
   Poll.findOneAndUpdate(query,
@@ -17,7 +17,7 @@ app.post('/addVote', function(req, res) {
 });
 
 // GET all polls ---------------------------------------------------
-app.get('/getpolls', function(req, res) {
+router.get('/getpolls', function(req, res) {
   Poll.find({}, function(err, result){
     if (err) return console.error(err);
     res.json(result);
@@ -25,7 +25,7 @@ app.get('/getpolls', function(req, res) {
 });
 
 //get single poll
-app.get('/getpoll/:pollId', function(req, res) {
+router.get('/getpoll/:pollId', function(req, res) {
   const name = req.params.pollId;
   Poll.find({ pollname: name }, function(err, result) {
     if (err) return console.error(err);
@@ -34,7 +34,7 @@ app.get('/getpoll/:pollId', function(req, res) {
 });
 
 //get poll results
-app.get('/getresults/:pollId', function(req, res) {
+router.get('/getresults/:pollId', function(req, res) {
   const name = req.params.pollId;
   Poll.findOne({ pollname: name })
   .select({votes:1, _id:0}).exec(function(err, result) {
