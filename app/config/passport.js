@@ -80,6 +80,7 @@ module.exports = function(passport) {
           email: email.trim(),
           password: password.trim()
         }
+
         User.findOne({ email: userData.email }, function(err, user) {
           if (err) { return done(err) }
           if (!user) {
