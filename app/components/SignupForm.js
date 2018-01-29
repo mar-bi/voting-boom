@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import { Link } from 'react-router-dom'
 import { sendAuthData } from '../utils/request_helpers'
+import Auth from '../utils/Auth'
 
 const style = {
   button: {
@@ -58,10 +59,17 @@ class SignupForm extends React.Component {
     const data = { name, email, password }
 
     const redirect = result => {
+      //@result {object {success, token, user, path}}
       //console.log(result.path)
+
+      //path user with location
       const location = {
-        pathname: result.path
+        pathname: result.path,
+        state: { user: result.user }
       }
+      // save the token
+      Auth.authenticateUser(result.token, result.user)
+      //redirect
       this.props.history.push(location)
     }
 

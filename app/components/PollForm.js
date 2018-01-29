@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import ContentClear from 'material-ui/svg-icons/content/clear'
 import { withRouter } from 'react-router-dom'
-import { sendPollData } from '../utils/request_helpers'
+import { createPoll } from '../utils/request_helpers'
 
 const home = 'localhost:3000/'
 const style = {
@@ -94,6 +94,7 @@ class PollForm extends React.Component {
     }
   }
 
+  // !!! move link ceation to back-end
   submitPoll() {
     const author = this.props.user
     const { pollname, question, answers } = this.state
@@ -109,7 +110,7 @@ class PollForm extends React.Component {
         }
         this.props.history.push(location)
       }
-      sendPollData('api/private/addPoll', data, redirect)
+      createPoll(data, redirect)
     } else {
       this.pollValidator(pollname, question, answers)
     }

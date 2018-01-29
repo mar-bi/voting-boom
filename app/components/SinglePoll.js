@@ -6,7 +6,7 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import FlatButton from 'material-ui/FlatButton'
 
-import { sendPollData, getPoll } from '../utils/request_helpers'
+import { sendVote, getPoll } from '../utils/request_helpers'
 import { withRouter } from 'react-router-dom'
 
 const styles = {
@@ -71,7 +71,7 @@ class SinglePoll extends React.Component {
       }
       this.props.history.push(location)
     }
-    sendPollData('api/public/addVote', vote, redirect)
+    sendVote(vote, redirect)
   }
 
   returnBack() {
