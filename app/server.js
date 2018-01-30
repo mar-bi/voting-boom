@@ -6,7 +6,7 @@ var mongoose = require('mongoose')
 var path = require('path')
 var cors = require('cors')
 var passport = require('passport') //create passport object
-var flash = require('connect-flash')
+//var flash = require('connect-flash')
 
 var morgan = require('morgan')
 var cookieParser = require('cookie-parser')
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, '../dist')))
 
 // required for passport-------------------------------------------
 app.use(passport.initialize())
-app.use(flash())
+//app.use(flash())
 
 // pass the authenticaion checker middleware--------------------------
 const authCheckMiddleware = require('./auth-check')

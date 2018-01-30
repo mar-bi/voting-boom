@@ -62,7 +62,7 @@ function validateLoginForm(payload) {
     payload.email.trim().length === 0
   ) {
     isFormValid = false
-    errors.email = 'Please provide your email address.'
+    errors.email = 'Please provide your email address'
   }
 
   if (
@@ -71,11 +71,11 @@ function validateLoginForm(payload) {
     payload.password.trim().length === 0
   ) {
     isFormValid = false
-    errors.password = 'Please provide your password.'
+    errors.password = 'Please provide your password'
   }
 
   if (!isFormValid) {
-    message = 'Check the form for errors.'
+    message = 'Check the form for errors'
   }
 
   return {
@@ -97,9 +97,17 @@ router.post('/signup', function(req, res, next) {
   }
   return passport.authenticate('local-signup', function(err, token, userData) {
     if (err) {
+      if (err.name === 'IncorrectCredentialsError') {
+        return res.json({
+          success: false,
+          message: err.message,
+          errors: {}
+        })
+      }
       return res.json({
         success: false,
-        message: 'Could not process the form.'
+        message: 'Could not process the form',
+        errors: {}
       })
     }
 
@@ -124,9 +132,17 @@ router.post('/login', function(req, res, next) {
   }
   return passport.authenticate('local-login', function(err, token, userData) {
     if (err) {
+      if (err.name === 'IncorrectCredentialsError') {
+        return res.json({
+          success: false,
+          message: err.message,
+          errors: {}
+        })
+      }
       return res.json({
         success: false,
-        message: 'Could not process the form.'
+        message: 'Could not process the form',
+        errors: {}
       })
     }
     return res.json({
