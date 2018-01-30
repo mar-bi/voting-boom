@@ -26,7 +26,8 @@ class LoginForm extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      message: ''
     }
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
@@ -65,7 +66,7 @@ class LoginForm extends React.Component {
     }
 
     const errorResponse = data => {
-      this.setState({ errors: data.errors })
+      this.setState({ message: data.message, errors: data.errors })
     }
     sendAuthData('login', data, errorResponse, redirect)
   }
@@ -75,6 +76,7 @@ class LoginForm extends React.Component {
     return (
       <Paper zDepth={2} className="user-form">
         <div className="form-fields">
+          <h3>{`${this.state.message}`}</h3>
           <TextField
             floatingLabelText="Email"
             floatingLabelFocusStyle={style.floatingLabelFocusStyle}

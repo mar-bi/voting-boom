@@ -46,10 +46,8 @@ class PasswordForm extends React.Component {
   }
 
   handleSubmit() {
-    // ??? get username somewhere
     const { oldPassword, newPassword } = this.state
     const data = { oldPassword, newPassword }
-    //console.log(data)
 
     const successResponse = result => {
       //@result {object {success, message}}
