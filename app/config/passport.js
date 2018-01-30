@@ -33,12 +33,22 @@ module.exports = function(passport) {
             return done(err)
           }
           if (user) {
-            return done(
-              null,
-              false,
-              req.flash('signupMessage', 'That email is already taken.')
-            )
-          } else {
+            const error = new Error('This e-mail is already in use');
+            error.name = 'IncorrectCredentialsError';
+            return done(error);
+          }
+
+          const userName = req.body.name.trim()
+          User.findOne({ name: userName}, function(err, user) {
+            if (err) {
+              return done(err)
+            }
+            if (user) {
+              const error = new Error('This name is already in use');
+              error.name = 'IncorrectCredentialsError';
+              return done(error);
+            }
+
             const newUser = new User()
             newUser.email = email.trim()
             newUser.password = newUser.generateHash(password.trim())
@@ -59,7 +69,7 @@ module.exports = function(passport) {
 
               return done(null, token, data)
             })
-          }
+          })
         })
       }
     )
@@ -87,18 +97,14 @@ module.exports = function(passport) {
             return done(err)
           }
           if (!user) {
-            return done(
-              null,
-              false,
-              req.flash('loginMessage', 'No user found.')
-            )
+            const error = new Error('Incorrect email');
+            error.name = 'IncorrectCredentialsError';
+            return done(error);
           }
           if (!user.validPassword(password)) {
-            return done(
-              null,
-              false,
-              req.flash('loginMessage', 'Oops! Wrong password.')
-            )
+            const error = new Error('Incorrect password');
+            error.name = 'IncorrectCredentialsError';
+            return done(error);
           }
           const payload = {
             sub: user._id
