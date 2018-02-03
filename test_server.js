@@ -2,7 +2,6 @@ var express = require("express");
 var mongoose = require('mongoose');
 var cors = require('cors');
 var passport = require('passport'); //create passport object
-var flash = require('connect-flash');
 
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -29,7 +28,6 @@ app.use(cors());
 
 // required for passport-------------------------------------------
 app.use(passport.initialize());
-app.use(flash());
 
 // pass the authenticaion checker middleware--------------------------
 const authCheckMiddleware = require('./app/auth-check');

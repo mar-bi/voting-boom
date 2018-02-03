@@ -53,7 +53,7 @@ const App = () => (
           <Route exact path="/" component={AllPolls} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
-          <Route path="/changepassword" component={PasswordForm} />
+          <PrivateRoute path="/changepassword" component={PasswordForm} />
           <PrivateRoute path="/user/:userId" component={UserTabs} />
           <Route path="/polls/results/:pollId" component={PollResults} />
           <Route exact path="/polls/link/:pollId" component={PollAddress} />

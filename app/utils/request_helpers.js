@@ -4,20 +4,22 @@ import Auth from './Auth'
 //!!! change before deployment
 const home = 'http://localhost:3000/'
 
-const config = {
-  headers: { Authorization: `bearer ${Auth.getToken()}` }
-}
-
 // callback is for purpose of redirection
 // request from PollForm component
-export function createPoll(data, callback) {
+export function createPoll(data, errorCB, successCB) {
   const url = `${home}api/private/addPoll`
+
+  const config = {
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
+  }
 
   axios
     .post(url, data, config)
     .then(function(response) {
-      if (callback) {
-        callback(response.data)
+      if (!response.data.success) {
+        errorCB(response.data)
+      } else {
+        successCB(response.data)
       }
     })
     .catch(function(error) {
@@ -67,6 +69,10 @@ export function sendAuthData(str, data, errorCB, successCB) {
 export function changePassword(data, errorCB, successCB) {
   const url = `${home}api/private/changePassword`
 
+  const config = {
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
+  }
+
   axios
     .post(url, data, config)
     .then(function(response) {
@@ -106,7 +112,7 @@ export function getPolls(user, callback) {
 
 export function getPoll(name, callback) {
   const url = `${home}api/public/getpoll/${name}`
-  //console.log(url)
+
   axios
     .get(url)
     .then(function(response) {
@@ -120,6 +126,9 @@ export function getPoll(name, callback) {
 // callback is for purpose of redirection
 export function deletePoll(data, callback) {
   const url = `${home}api/private/deletePoll`
+  const config = {
+    headers: { Authorization: `bearer ${Auth.getToken()}` }
+  }
 
   axios
     .post(url, data, config)

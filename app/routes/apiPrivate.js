@@ -4,6 +4,8 @@ var bcrypt = require('bcrypt-nodejs')
 var Poll = require('../models/poll.js')
 var User = require('../models/user.js')
 
+const home = 'localhost:3000/'
+
 // @param {object} payload - the HTTP body message
 // @returns {object} The result of validation. Object contains a boolean
 // validation result, errors tips, and a global message for the whole form.
@@ -48,32 +50,51 @@ function validatePasswordForm(payload) {
 // create poll
 router.post('/addPoll', function(req, res) {
   const newPoll = req.body
-  // create votes Array
-  const votes = newPoll.answers.map((elem, index) => {
-    return {
-      option: elem,
-      num: 0
-    }
-  })
-  const currPoll = new Poll({
-    pollname: newPoll.pollname,
-    author: newPoll.author,
-    question: newPoll.question,
-    answers: newPoll.answers,
-    link: newPoll.link,
-    votes: votes
-  })
-  currPoll.save(function(err, poll) {
-    if (err) return console.error(err)
-    res.json(poll)
-  })
+  // enforce uniqueness of pairs {author: pollname}
+  Poll.find(
+    {author: newPoll.author, pollname: newPoll.pollname},
+    function(err, result){
+      console.log(result, result.length)
+      if (err) { return console.error(err) }
+      else if (result.length !== 0){
+        return res.json({
+          success: false,
+          message: "This pollname is already used"
+        })
+      } else {
+        newPoll.link = `${home}polls/${newPoll.author}-${newPoll.pollname}/`
+
+        //create votes Array
+        const votes = newPoll.answers.map((elem, index) => {
+          return {
+            option: elem,
+            num: 0
+          }
+        })
+        newPoll.votes = votes
+
+        const currPoll = new Poll({
+          pollname: newPoll.pollname,
+          author: newPoll.author,
+          question: newPoll.question,
+          answers: newPoll.answers,
+          link: newPoll.link,
+          votes: newPoll.votes
+        })
+
+        currPoll.save(function(err, poll) {
+          if (err) return console.error(err)
+          return res.json({ success: true, poll })
+        })
+      }
+    })
 })
 
 // delete poll
 router.post('/deletePoll', function(req, res) {
   const id = req.body._id
   const author = req.body.author
-
+  // find poll by id and remove
   Poll.remove({ _id: id }, function(err, poll) {
     if (err) return console.error(err)
     Poll.find({ author: author }, function(err, result) {

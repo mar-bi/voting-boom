@@ -39,6 +39,7 @@ class PollForm extends React.Component {
     this.handleOption = this.handleOption.bind(this)
     this.deleteOption = this.deleteOption.bind(this)
     this.pollValidator = this.pollValidator.bind(this)
+    this.optionsValidator = this.optionsValidator.bind(this)
   }
 
   addOption() {
@@ -63,7 +64,8 @@ class PollForm extends React.Component {
 
   handlePollName(e, newVal) {
     this.setState({
-      pollname: newVal
+      pollname: newVal,
+      warning: ''
     })
   }
 
@@ -94,23 +96,31 @@ class PollForm extends React.Component {
     }
   }
 
+  optionsValidator(arr){
+    // check for duplicates in array
+  }
+
   // !!! move link ceation to back-end
   submitPoll() {
     const author = this.props.user
     const { pollname, question, answers } = this.state
-    const link = `${home}polls/${pollname}/`
 
     if (pollname && question && answers.length > 1) {
-      const data = { pollname, author, question, answers, link }
+      const data = { pollname, author, question, answers }
 
-      const redirect = result => {
+      const successCB = result => {
         const location = {
-          pathname: `/polls/${result.pollname}`,
-          state: { poll: result }
+          pathname: `/polls/${result.poll.author}-${result.poll.pollname}`,
+          state: { poll: result.poll }
         }
         this.props.history.push(location)
       }
-      createPoll(data, redirect)
+
+      const errorCB = result => (
+        this.setState({ warning: result.message })
+      )
+
+      createPoll(data, errorCB, successCB)
     } else {
       this.pollValidator(pollname, question, answers)
     }

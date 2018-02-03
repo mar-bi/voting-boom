@@ -21,7 +21,7 @@ const Grid = props => {
                 <div key={index}>
                   <Link
                     to={{
-                      pathname: `/polls/${item.pollname}`,
+                      pathname: `/polls/${item.author}-${item.pollname}`,
                       state: { poll: item }
                     }}
                   >
@@ -38,7 +38,7 @@ const Grid = props => {
                 <div key={index}>
                   <Link
                     to={{
-                      pathname: `/polls/${item.pollname}`,
+                      pathname: `/polls/${item.author}-${item.pollname}`,
                       state: { poll: item }
                     }}
                   >

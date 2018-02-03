@@ -81,7 +81,7 @@ class GridWithButtons extends React.Component {
                     }
                     onClick={this.handleClick.bind(
                       null,
-                      `${item.pollname}`,
+                      `${item.author}-${item.pollname}`,
                       item
                     )}
                   />
@@ -128,7 +128,7 @@ class GridWithButtons extends React.Component {
                     }
                     onClick={this.handleClick.bind(
                       null,
-                      `${item.pollname}`,
+                      `${item.author}-${item.pollname}`,
                       item
                     )}
                   />
