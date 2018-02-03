@@ -41,29 +41,38 @@ class PasswordForm extends React.Component {
 
   handleNew(e, newVal) {
     this.setState({
-      newPassword: newVal
+      newPassword: newVal,
+      message: '',
+      errors: {}
     })
   }
 
   handleSubmit() {
     const { oldPassword, newPassword } = this.state
-    const data = { oldPassword, newPassword }
-
-    const successResponse = result => {
-      //@result {object {success, message}}
+    if (oldPassword === newPassword){
       this.setState({
-        message: result.message,
-        errors: {},
-        oldPassword: '',
-        newPassword: ''
+        message: "New password matches old password",
+        errors: { newPassword: "Please provide another password" }
       })
-    }
+    } else {
+      const data = { oldPassword, newPassword }
 
-    const errorResponse = data => {
-      this.setState({ message: data.message, errors: data.errors })
-    }
+      const successResponse = result => {
+        //@result {object {success, message}}
+        this.setState({
+          message: result.message,
+          errors: {},
+          oldPassword: '',
+          newPassword: ''
+        })
+      }
 
-    changePassword(data, errorResponse, successResponse)
+      const errorResponse = data => {
+        this.setState({ message: data.message, errors: data.errors })
+      }
+
+      changePassword(data, errorResponse, successResponse)
+    }
   }
 
   render() {
