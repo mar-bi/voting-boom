@@ -1,30 +1,83 @@
 import React from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import IconButton from 'material-ui/IconButton'
+import MenuItem from 'material-ui/MenuItem'
+import IconMenu from 'material-ui/IconMenu'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import Auth from '../utils/Auth'
 
 const styles = {
-  label: { color: '#fff', fontSize: '1.25em' }
+  label: { color: '#fff', fontSize: '1.25em' },
+  icon: {color: '#fff'},
+  title: {width: '50%'}
+}
+
+const loginItems = {
+  items: ["Home", "New User", "LogIn"],
+  links: ["/", "/signup", "/login"],
+  id: "login"
+}
+
+const logoutItems ={
+  items: ["Home", "Change Password", "LogOut"],
+  links: ["/", "/changepassword"],
+  id: "logout"
+}
+
+const NavIconMenu = ({ data, redirect, logout }) => {
+  const handleItemClick = (e, child) => {
+    if (child.props.id === 'logout2'){
+      logout()
+    } else {
+      const index = child.props.id.slice(-1)
+      redirect(data.links[index])
+    }
+  }
+  return (
+    <IconMenu
+        iconButtonElement={
+          <IconButton
+            iconStyle={styles.icon}
+          >
+            <MoreVertIcon />
+          </IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        className="login-menu"
+        onItemTouchTap={handleItemClick}
+
+      >
+        {data.items.map((item, index) =>
+          <MenuItem key={`${data.id}-${index}`} id={`${data.id}${index}`} primaryText={data.items[index]} />
+        )}
+    </IconMenu>
+  )
 }
 
 const Login = props => (
   <div>
-    <NavLink exact to="/" activeClassName="active">
-      <FlatButton label="Home" className="selected" />
-    </NavLink>
+    <div className="login-nav-menu">
+      <NavLink exact to="/" activeClassName="active">
+        <FlatButton label="Home" className="selected" />
+      </NavLink>
 
-    <NavLink to="/signup">
-      <FlatButton label="New User" className="selected" />
-    </NavLink>
+      <NavLink to="/signup">
+        <FlatButton label="New User" className="selected" />
+      </NavLink>
 
-    <NavLink to="/login">
-      <FlatButton label="LogIn" className="selected" />
-    </NavLink>
+      <NavLink to="/login">
+        <FlatButton label="LogIn" className="selected" />
+      </NavLink>
+    </div>
+
+    <NavIconMenu data={loginItems} redirect={props.redirect} />
   </div>
 )
 
-// add events to CHANGE PASSWORD and LOGOUT
+
 // CHANGEPASSWORD => component
 // LOGOUT => delete tocken from local storage + redirect
 const Logged = props => {
@@ -32,14 +85,18 @@ const Logged = props => {
 
   return (
     <div>
-      <NavLink exact to="/" activeClassName="active">
-        <FlatButton label="Home" className="selected" />
-      </NavLink>
-      <NavLink to="/changepassword">
-        <FlatButton label="Change Password" className="selected" />
-      </NavLink>
+      <div className="login-nav-menu">
+        <NavLink exact to="/" activeClassName="active">
+          <FlatButton label="Home" className="selected" />
+        </NavLink>
+        <NavLink to="/changepassword">
+          <FlatButton label="Change Password" className="selected" />
+        </NavLink>
 
-      <FlatButton label="LogOut" className="selected" onClick={handleClick} />
+        <FlatButton label="LogOut" className="selected" onClick={handleClick} />
+      </div>
+
+      <NavIconMenu data={logoutItems} redirect={props.redirect} logout={handleClick}/>
     </div>
   )
 }
@@ -51,9 +108,6 @@ const MessageInit = () => (
     <h3>Create, store, and share your polls</h3>
   </div>
 )
-
-// !!! check if it has an access to {match} => username,
-// then you don't need to pass state with location
 
 const MessageUser = () => {
   const user = Auth.getUser()
@@ -88,6 +142,7 @@ const Header = props => {
     Auth.deauthenticateUser()
     props.history.push('/')
   }
+  const redirectNavItem = route => props.history.push(route)
 
   return (
     <div>
@@ -98,7 +153,9 @@ const Header = props => {
           </span>
         }
         iconElementRight={
-          Auth.isUserAuthenticated() ? <Logged logout={LogOut} /> : <Login />
+          Auth.isUserAuthenticated()
+          ? <Logged logout={LogOut} redirect={redirectNavItem} />
+          : <Login redirect={redirectNavItem} />
         }
         showMenuIconButton={false}
       />

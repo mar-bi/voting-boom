@@ -28,6 +28,9 @@ a {
 
 .header-title {
   cursor: pointer !important;
+  @media screen and (max-width: $smallscreen) {
+    font-size: 0.9em;
+  }
 }
 
 .selected {
@@ -47,7 +50,22 @@ a {
   width: 100%;
   background-color: $banner_color;
   padding: 20px 0;
+  @media screen and (max-width: $smallscreen) {
+    padding: 0.5em;
+  }
+}
 
+.login-menu {
+  display: none !important;
+  @media screen and (max-width: $mediumscreen) {
+    display: block !important;
+  }
+}
+
+.login-nav-menu {
+  @media screen and (max-width: $mediumscreen) {
+    display: none;
+  }
 }
 
 .dashbord-message {
@@ -58,8 +76,12 @@ a {
     text-align: center;
     font-size: 3.2em;
     color: $primary_color;
+    @media screen and (max-width: $mediumscreen) {
+      font-size: 3em;
+      padding: 0 0.5em;
+    }
     @media screen and (max-width: $smallscreen) {
-      font-size: 2.8em;
+      font-size: 2.2em;
     }
     margin:10px 0;
   }
@@ -69,6 +91,12 @@ a {
     font-family:'Prompt', sans-serif;
     font-size: 2em;
     margin:10px 0 0 0;
+    @media screen and (max-width: $mediumscreen) {
+      font-size: 1.4em;
+    }
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.125em;
+    }
   }
 
   h4 {
@@ -79,6 +107,10 @@ a {
     margin-top: 0;
     span {
       color: $secondary_color;
+    }
+    @media screen and (max-width: $smallscreen) {
+      margin-bottom: 0.5em;
+      font-size: 0.8em;
     }
   }
 
@@ -128,6 +160,9 @@ a {
     color: $text_color;
     font-size: 2.2em;
     margin: 0.6em 0;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 2em;
+    }
   }
 }
 
@@ -138,6 +173,9 @@ a {
     font-weight: 400;
     font-size: 1.3em !important;
     margin: 0 0 10px 0;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.125em !important;
+    }
   }
   h5 {
     font-size: 1em !important;
