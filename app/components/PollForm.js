@@ -28,7 +28,7 @@ class PollForm extends React.Component {
       hint_text: ['Unicorn', 'Polar Bear', 'Parrot', 'Dragon', 'Turtle'],
       pollname: '',
       question: '',
-      answers: [],
+      answers: ['', ''],
       warning: ''
     }
 
@@ -43,23 +43,23 @@ class PollForm extends React.Component {
   }
 
   addOption() {
-    const num_options = this.state['num_options'] + 1
-    this.setState({
-      num_options: num_options
-    })
+    // insert option limit (10)
+    if (this.state['num_options'] < 10){
+      const num_options = this.state['num_options'] + 1
+      let answers = [...this.state.answers]
+      answers.push('')
+      this.setState({ num_options, answers })
+    } else {
+      this.setState({ warning: "The maximum number of answers is reached" })
+    }
   }
 
   deleteOption(i) {
     const num_options = this.state['num_options'] - 1
-    let arr = this.state['answers'].slice()
-    arr.splice(i, 1)
+    let answers = [...this.state.answers]
+    answers.splice(i, 1)
 
-    console.log(arr)
-
-    this.setState({
-      num_options: num_options,
-      answers: arr
-    })
+    this.setState({ num_options, answers })
   }
 
   handlePollName(e, newVal) {
@@ -76,12 +76,9 @@ class PollForm extends React.Component {
   }
 
   handleOption(newVal, i) {
-    let arr = this.state['answers'].slice()
-    arr[i] = newVal
-
-    this.setState({
-      answers: arr
-    })
+    let answers = [...this.state.answers]
+    answers[i] = newVal
+    this.setState({ answers })
   }
 
   pollValidator(name, question, options) {
@@ -90,22 +87,34 @@ class PollForm extends React.Component {
     } else if (!question) {
       this.setState({ warning: 'Please ask your question!' })
     } else if (options.length > 0) {
-      this.setState({ warning: 'Please give one more option!' })
+      this.setState({ warning: 'Please check your options!' })
     } else {
       this.setState({ warning: 'Please provide answers!' })
     }
   }
 
+  //return boolean
+  // removes duplicates in the array then compare it to the initial array
   optionsValidator(arr){
-    // check for duplicates in array
+    const options = [...arr]
+    const result = options.sort().reduce((init, current) => {
+      if ((init.length === 0 || init[init.length - 1] !== current) &&
+        current !== '') {
+          init.push(current);
+      }
+      return init;
+      }, [])
+      //console.log(`Arr: ${arr.length}, Result: ${result.length}`)
+    return arr.length === result.length
   }
 
-  // !!! move link ceation to back-end
   submitPoll() {
+    const warning = this.state.warning
     const author = this.props.user
     const { pollname, question, answers } = this.state
+    const validAnswers = this.optionsValidator(answers)
 
-    if (pollname && question && answers.length > 1) {
+    if (pollname && question && answers.length > 1 && validAnswers ) {
       const data = { pollname, author, question, answers }
 
       const successCB = result => {
@@ -126,10 +135,13 @@ class PollForm extends React.Component {
     }
   }
 
+  // TextFields (pollname & question) are uncontrolled,
+  // answers instead are controlled
   render() {
     const arr = Array(this.state['num_options']).fill(1),
       placeholders = this.state['hint_text'],
-      message = this.state.warning
+      message = this.state.warning,
+      options = [...this.state.answers]
 
     return (
       <Paper zDepth={3} style={style.paper}>
@@ -168,6 +180,7 @@ class PollForm extends React.Component {
                 floatingLabelStyle={style.floatingLabelStyle}
                 style={style.line}
                 onChange={(e, newVal) => this.handleOption(newVal, i)}
+                value={options[i]}
               />
               <IconButton
                 tooltip="Delete"
