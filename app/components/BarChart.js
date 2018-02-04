@@ -19,12 +19,12 @@ const renderRect = props => {
 }
 
 const DataRect = props => (
-  <g transform="translate(20,0)">{props.data.map(renderRect(props))}</g>
+  <g transform={`translate(${props.style.padding/2},0)`}>{props.data.map(renderRect(props))}</g>
 )
 
 const XYAxis = props => {
   const xSettings = {
-    translate: `translate(20, ${props.height + props.style.padding / 4})`,
+    translate: `translate(${props.style.padding/2}, ${props.height + props.style.padding / 4})`,
     scale: props.xAxisScale,
     orient: 'bottom',
     ticks: props.maxX

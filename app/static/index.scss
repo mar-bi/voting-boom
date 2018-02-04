@@ -175,9 +175,12 @@ a {
 
 .user-tabs {
   width: 65% !important;
-  min-width: 280px !important;
+  min-width: 300px !important;
   max-width: 600px !important;
   margin: 10px auto !important;
+  @media screen and (max-width: $mediumscreen) {
+    width: 80% !important;
+  }
   h3 {
     text-align: center;
     color: $text_color;
@@ -282,8 +285,15 @@ a {
 
 .poll-results-container {
   @extend .user-tabs;
+  width: 100% !important;
+  @media screen and (max-width: $mediumscreen) {
+    width: 90% !important;
+  }
   div {
-    padding: 1em !important;
+    padding: 1em;
+    @media screen and (max-width: $mediumscreen) {
+      padding: 0.2em;
+    }
   }
   h3 {
     font-size: 2em !important;
@@ -291,6 +301,9 @@ a {
     span {
       font-size: 0.8em;
       color: $text_color;
+    }
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.25em !important;
     }
   }
   svg {
@@ -300,8 +313,34 @@ a {
     text {
       font-size: 1.2em;
     }
+    @media screen and (max-width: $mediumscreen) {
+      padding: 0.4em;
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 500px) {
+      text {
+        font-size: 0.8em;
+      }
+      padding: 0.2em;
+      margin: 0 auto;
+    }
+  }
+  .chart-std {
+    display: block;
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
+  }
+
+  .chart-mob {
+    display: none;
+    @media screen and (max-width: 500px) {
+      display: block;
+    }
   }
 }
+
+
 
 .del-button {
   float: right !important;
@@ -350,8 +389,15 @@ a {
   text-decoration: none;
   display: block;
   margin-top: 4em;
+  margin-bottom: 1em;
+  &.chart {
+    margin-top: 0em;
+  }
   @media screen and (max-width: $smallscreen) {
-    margin-top: 3em;
+    margin-top: 2em;
+    &.chart {
+      margin-top: 0em;
+    }
   }
   button {
     display: block !important;
@@ -359,5 +405,9 @@ a {
     width: 10em !important;
     margin: 0 auto !important;
     line-height: 1em !important;
+    @media screen and (max-width: $smallscreen) {
+      width: 8em !important;
+      height: 2.5em !important;
+    }
   }
 }
