@@ -17,6 +17,7 @@ body {
   font-size: 16px;
   color: $text_color;
   box-sizing: border-box;
+  margin: 0;
 }
 
 a {
@@ -120,6 +121,23 @@ a {
     margin: 1em auto !important;
     padding: 0.5em !important;
     height: auto !important;
+    div span {
+      color: #fff !important;
+      font-size: 1.25em !important;
+    }
+    @media screen and (max-width: $smallscreen) {
+      width: 11em !important;
+      div span {
+        font-size: 1.125em !important;
+      }
+    }
+  }
+}
+
+.poll-form-container{
+  padding: 1em;
+  @media screen and (max-width: $smallscreen) {
+    padding: 0.7em;
   }
 }
 
@@ -141,6 +159,11 @@ a {
   margin: 0 auto;
   margin-top: 2.3em;
   @media screen and (max-width: $mediumscreen) {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+  }
+  @media screen and (max-width: $smallscreen) {
     width: 100%;
   }
   .poll-button {

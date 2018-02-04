@@ -9,7 +9,6 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import Auth from '../utils/Auth'
 
 const styles = {
-  label: { color: '#fff', fontSize: '1.25em' },
   icon: {color: '#fff'},
   title: {width: '50%'}
 }
@@ -122,7 +121,6 @@ const MessageUser = () => {
           backgroundColor="#00BCD4"
           label="your polls"
           className="user-button"
-          labelStyle={styles.label}
           hoverColor="#EC407A"
         />
       </Link>

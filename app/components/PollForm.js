@@ -11,11 +11,10 @@ import { createPoll } from '../utils/request_helpers'
 
 const home = 'localhost:3000/'
 const style = {
-  input: { marginLeft: 20 },
+  input: { marginLeft: 10 },
   label: { color: '#fff' },
   floatingLabelStyle: { color: '#00BCD4', fontSize: '1.125em' },
-  line: { marginLeft: 20, width: '80%' },
-  paper: { padding: '1em' }
+  line: { marginLeft: 10, width: '70%' }
 }
 
 const Warning = props => <h4 className="warning">{props.message}</h4>
@@ -104,7 +103,7 @@ class PollForm extends React.Component {
       }
       return init;
       }, [])
-      //console.log(`Arr: ${arr.length}, Result: ${result.length}`)
+
     return arr.length === result.length
   }
 
@@ -144,7 +143,7 @@ class PollForm extends React.Component {
       options = [...this.state.answers]
 
     return (
-      <Paper zDepth={3} style={style.paper}>
+      <Paper zDepth={3} className="poll-form-container">
         <Warning message={message} />
         <Paper zDepth={2} className="poll-form">
           <TextField
