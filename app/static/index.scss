@@ -187,18 +187,23 @@ a {
   @extend .user-tabs;
   .single-poll {
     padding: 20px 20px 30px 20px !important;
-
   }
 
   h3 {
     margin: 12px 0;
     font-size: 1.8em;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.4em;
+    }
   }
   h4 {
     color: $text_color;
     font-size: 1.4em;
-    margin: 1.3em 0;
+    margin: 1em 0;
     padding-left: 1em;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.2em;
+    }
   }
   h4.author {
     color: $primary_color;
@@ -206,19 +211,25 @@ a {
     font-size: 1.2em;
     margin: 12px 0;
     padding-left: 0;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1em;
+    }
     span {
       color: #757575;
     }
   }
-
-  a {
-    color: $text_color;
-    background-color: lighten($primary_color, 40%);
-    font-size: 1.2em;
-    font-weight: bold;
+  a.poll-link {
+    color: darken($primary_color, 10%);
+    font-size: 1.25em;
+    font-weight: 400;
+    text-decoration: underline;
     margin-left: 1em;
     margin-bottom: 1em;
     padding: 0.5em;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 0.9em;
+      padding: 0.2em
+    }
   }
 }
 
@@ -267,13 +278,6 @@ a {
       font-size: 1.2em;
     }
   }
-  button {
-    display: block !important;
-    height: 3em !important;
-    width: 10em !important;
-    margin: 0 auto !important;
-    line-height: 1em !important;
-  }
 }
 
 .del-button {
@@ -316,5 +320,21 @@ a {
   text-align: center;
   h1 {
     color: $secondary_color;
+  }
+}
+
+.home-button {
+  text-decoration: none;
+  display: block;
+  margin-top: 4em;
+  @media screen and (max-width: $smallscreen) {
+    margin-top: 3em;
+  }
+  button {
+    display: block !important;
+    height: 3em !important;
+    width: 10em !important;
+    margin: 0 auto !important;
+    line-height: 1em !important;
   }
 }

@@ -1,10 +1,15 @@
 import React from 'react'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
-import ActionFavorite from 'material-ui/svg-icons/action/favorite'
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
+//import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+//import ActionFavorite from 'material-ui/svg-icons/action/favorite'
+//import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import FlatButton from 'material-ui/FlatButton'
+import { Link } from 'react-router-dom'
+
+const styles = {
+  label: { color: '#fff', fontSize: '1.125em' }
+}
 
 const PollAddress = props => {
   const poll = props.location.state.poll
@@ -20,8 +25,17 @@ const PollAddress = props => {
         </div>
         <div>
           <h4>Poll address:</h4>
-          <a href={`${poll.link}`} target="_blank">{`${poll.link}`}</a>
+          <a href={`${poll.link}`} target="_blank" className="poll-link">{`${poll.link}`}</a>
         </div>
+
+        <Link to="/" className="home-button">
+          <FlatButton
+            backgroundColor="#EC407A"
+            label="home"
+            labelStyle={styles.label}
+            hoverColor="#00BCD4"
+          />
+        </Link>
       </Paper>
     </div>
   )
