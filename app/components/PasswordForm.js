@@ -1,9 +1,7 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
-import { Link } from 'react-router-dom'
 import { changePassword } from '../utils/request_helpers'
 
 const style = {
@@ -49,10 +47,10 @@ class PasswordForm extends React.Component {
 
   handleSubmit() {
     const { oldPassword, newPassword } = this.state
-    if (oldPassword === newPassword){
+    if (oldPassword === newPassword) {
       this.setState({
-        message: "New password matches old password",
-        errors: { newPassword: "Please provide another password" }
+        message: 'New password matches old password',
+        errors: { newPassword: 'Please provide another password' }
       })
     } else {
       const data = { oldPassword, newPassword }

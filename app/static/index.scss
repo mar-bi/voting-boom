@@ -48,7 +48,6 @@ a {
 }
 
 .banner {
-  width: 100%;
   background-color: $banner_color;
   padding: 20px 0;
   @media screen and (max-width: $smallscreen) {
@@ -114,21 +113,34 @@ a {
       font-size: 0.8em;
     }
   }
+}
+
+.dashbord-buttons {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 
   button {
-    display: block !important;
-    width: 14em !important;
+    display: inline-block !important;
+    width: 11em !important;
     margin: 1em auto !important;
     padding: 0.5em !important;
     height: auto !important;
+    &:nth-child(1) {
+      margin-right: 0.5em !important;
+    }
+    &:nth-child(2) {
+      margin-left: 0.5em !important;
+    }
     div span {
       color: #fff !important;
-      font-size: 1.25em !important;
+      font-size: 1.125em !important;
     }
-    @media screen and (max-width: $smallscreen) {
-      width: 11em !important;
+    @media screen and (max-width: $mediumscreen) {
+      width: 8.5em !important;
+      padding: 0.25em !important;
       div span {
-        font-size: 1.125em !important;
+        font-size: 1em !important;
       }
     }
   }
@@ -340,8 +352,6 @@ a {
   }
 }
 
-
-
 .del-button {
   float: right !important;
 }
@@ -373,6 +383,9 @@ a {
     color: $text_color;
     text-align: center;
     margin-top: 2em;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1em;
+    }
   }
 }
 
@@ -391,7 +404,7 @@ a {
   margin-top: 4em;
   margin-bottom: 1em;
   &.chart {
-    margin-top: 0em;
+    margin-top: 0.5em;
   }
   @media screen and (max-width: $smallscreen) {
     margin-top: 2em;
@@ -408,6 +421,17 @@ a {
     @media screen and (max-width: $smallscreen) {
       width: 8em !important;
       height: 2.5em !important;
+    }
+  }
+}
+
+g.x-axis {
+  text {
+    transform: translate(15px, 55px) rotate(90deg);
+  }
+  @media screen and (max-width: $smallscreen) {
+    text {
+      transform: translate(15px, 40px) rotate(90deg);
     }
   }
 }

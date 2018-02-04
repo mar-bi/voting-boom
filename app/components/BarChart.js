@@ -18,13 +18,26 @@ const renderRect = props => {
   }
 }
 
+renderRect.propTypes ={
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired
+}
+
 const DataRect = props => (
-  <g transform={`translate(${props.style.padding/2},0)`}>{props.data.map(renderRect(props))}</g>
+  <g transform={`translate(${props.style.padding / 2},0)`}>
+    {props.data.map(renderRect(props))}
+  </g>
 )
+
+DataRect.propTypes = {
+  style: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired
+}
 
 const XYAxis = props => {
   const xSettings = {
-    translate: `translate(${props.style.padding/2}, ${props.height + props.style.padding / 4})`,
+    translate: `translate(${props.style.padding / 2}, ${props.height +
+      props.style.padding / 4})`,
     scale: props.xAxisScale,
     orient: 'bottom',
     ticks: props.maxX
@@ -42,8 +55,16 @@ const XYAxis = props => {
   )
 }
 
+XYAxis.propTypes = {
+  style: PropTypes.object.isRequired,
+  height: PropTypes.number.isRequired,
+  xAxisScale: PropTypes.func.isRequired,
+  yAxisScale: PropTypes.func.isRequired,
+  maxX: PropTypes.number.isRequired
+}
+
 const BarChart = props => {
-  const height = props.style.height - props.style.padding * 2,
+  const height = props.style.height - props.style.padding * 4,
     width = props.style.width - props.style.padding * 2
 
   const data = [...props.data]

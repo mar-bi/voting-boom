@@ -17,7 +17,6 @@ var app = express()
 require('dotenv').config()
 
 var configDB = process.env.LOCAL_MONGODB
-var Poll = require('./app/models/poll.js')
 var options = {
   useMongoClient: true,
   autoIndex: false

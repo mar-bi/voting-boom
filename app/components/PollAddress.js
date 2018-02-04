@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 //import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 //import ActionFavorite from 'material-ui/svg-icons/action/favorite'
@@ -25,7 +25,9 @@ const PollAddress = props => {
         </div>
         <div>
           <h4>Poll address:</h4>
-          <a href={`${poll.link}`} target="_blank" className="poll-link">{`${poll.link}`}</a>
+          <a href={`${poll.link}`} target="_blank" className="poll-link">{`${
+            poll.link
+          }`}</a>
         </div>
 
         <Link to="/" className="home-button">
@@ -42,3 +44,7 @@ const PollAddress = props => {
 }
 
 export default PollAddress
+
+PollAddress.propTypes = {
+  location: PropTypes.object
+}

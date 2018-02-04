@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import FlatButton from 'material-ui/FlatButton'
 import { Link } from 'react-router-dom'
@@ -55,3 +55,8 @@ const PollResults = props => {
 }
 
 export default PollResults
+
+PollResults.propTypes = {
+  location: PropTypes.object,
+  match: PropTypes.object
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import ActionFavorite from 'material-ui/svg-icons/action/favorite'
@@ -58,7 +58,7 @@ class SinglePoll extends React.Component {
     })
   }
 
-  sendVote(e) {
+  sendVote() {
     const poll = this.state.poll
     const vote = {
       _id: poll._id,
@@ -134,3 +134,10 @@ class SinglePoll extends React.Component {
 }
 
 export default withRouter(SinglePoll)
+
+
+SinglePoll.propTypes = {
+  location: PropTypes.object,
+  history: PropTypes.object,
+  match: PropTypes.object
+}

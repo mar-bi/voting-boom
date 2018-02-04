@@ -51,43 +51,45 @@ function validatePasswordForm(payload) {
 router.post('/addPoll', function(req, res) {
   const newPoll = req.body
   // enforce uniqueness of pairs {author: pollname}
-  Poll.find(
-    {author: newPoll.author, pollname: newPoll.pollname},
-    function(err, result){
-      console.log(result, result.length)
-      if (err) { return console.error(err) }
-      else if (result.length !== 0){
-        return res.json({
-          success: false,
-          message: "This pollname is already used"
-        })
-      } else {
-        newPoll.link = `${home}polls/${newPoll.author}-${newPoll.pollname}/`
+  Poll.find({ author: newPoll.author, pollname: newPoll.pollname }, function(
+    err,
+    result
+  ) {
+    console.log(result, result.length)
+    if (err) {
+      return console.error(err)
+    } else if (result.length !== 0) {
+      return res.json({
+        success: false,
+        message: 'This pollname is already used'
+      })
+    } else {
+      newPoll.link = `${home}polls/${newPoll.author}-${newPoll.pollname}/`
 
-        //create votes Array
-        const votes = newPoll.answers.map((elem, index) => {
-          return {
-            option: elem,
-            num: 0
-          }
-        })
-        newPoll.votes = votes
+      //create votes Array
+      const votes = newPoll.answers.map(elem => {
+        return {
+          option: elem,
+          num: 0
+        }
+      })
+      newPoll.votes = votes
 
-        const currPoll = new Poll({
-          pollname: newPoll.pollname,
-          author: newPoll.author,
-          question: newPoll.question,
-          answers: newPoll.answers,
-          link: newPoll.link,
-          votes: newPoll.votes
-        })
+      const currPoll = new Poll({
+        pollname: newPoll.pollname,
+        author: newPoll.author,
+        question: newPoll.question,
+        answers: newPoll.answers,
+        link: newPoll.link,
+        votes: newPoll.votes
+      })
 
-        currPoll.save(function(err, poll) {
-          if (err) return console.error(err)
-          return res.json({ success: true, poll })
-        })
-      }
-    })
+      currPoll.save(function(err, poll) {
+        if (err) return console.error(err)
+        return res.json({ success: true, poll })
+      })
+    }
+  })
 })
 
 // delete poll
@@ -95,7 +97,7 @@ router.post('/deletePoll', function(req, res) {
   const id = req.body._id
   const author = req.body.author
   // find poll by id and remove
-  Poll.remove({ _id: id }, function(err, poll) {
+  Poll.remove({ _id: id }, function(err) {
     if (err) return console.error(err)
     Poll.find({ author: author }, function(err, result) {
       if (err) return console.error(err)
@@ -117,7 +119,7 @@ router.post('/changePassword', function(req, res) {
 
   const userId = res.locals.userId
   const oldPass = req.body.oldPassword.trim()
-  newPass = req.body.newPassword.trim()
+  const newPass = req.body.newPassword.trim()
   const hashNew = bcrypt.hashSync(newPass, bcrypt.genSaltSync(8), null)
 
   User.findById(userId, function(userErr, user) {

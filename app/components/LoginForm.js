@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
@@ -109,3 +109,7 @@ class LoginForm extends React.Component {
 }
 
 export default LoginForm
+
+LoginForm.propTypes = {
+  history: PropTypes.object
+}

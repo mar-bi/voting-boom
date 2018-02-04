@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Tabs, Tab } from 'material-ui/Tabs'
 
 import GridWithButtons from './GridWithButtons'
@@ -18,3 +19,7 @@ const UserTabs = ({ match }) => (
 )
 
 export default UserTabs
+
+UserTabs.propTypes = {
+  match: PropTypes.object
+}

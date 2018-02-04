@@ -163,7 +163,8 @@ class GridWithButtons extends React.Component {
 }
 
 GridWithButtons.propTypes = {
-  user: PropTypes.string.isRequired
+  user: PropTypes.string.isRequired,
+  history: PropTypes.object
 }
 
 export default withRouter(GridWithButtons)

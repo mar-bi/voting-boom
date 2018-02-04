@@ -9,7 +9,6 @@ import ContentClear from 'material-ui/svg-icons/content/clear'
 import { withRouter } from 'react-router-dom'
 import { createPoll } from '../utils/request_helpers'
 
-const home = 'localhost:3000/'
 const style = {
   input: { marginLeft: 10 },
   label: { color: '#fff' },
@@ -18,6 +17,10 @@ const style = {
 }
 
 const Warning = props => <h4 className="warning">{props.message}</h4>
+
+Warning.propTypes = {
+  message: PropTypes.string.isRequired
+}
 
 class PollForm extends React.Component {
   constructor(props) {
@@ -43,13 +46,13 @@ class PollForm extends React.Component {
 
   addOption() {
     // insert option limit (10)
-    if (this.state['num_options'] < 10){
+    if (this.state['num_options'] < 10) {
       const num_options = this.state['num_options'] + 1
       let answers = [...this.state.answers]
       answers.push('')
       this.setState({ num_options, answers })
     } else {
-      this.setState({ warning: "The maximum number of answers is reached" })
+      this.setState({ warning: 'The maximum number of answers is reached' })
     }
   }
 
@@ -94,26 +97,27 @@ class PollForm extends React.Component {
 
   //return boolean
   // removes duplicates in the array then compare it to the initial array
-  optionsValidator(arr){
+  optionsValidator(arr) {
     const options = [...arr]
     const result = options.sort().reduce((init, current) => {
-      if ((init.length === 0 || init[init.length - 1] !== current) &&
-        current !== '') {
-          init.push(current);
+      if (
+        (init.length === 0 || init[init.length - 1] !== current) &&
+        current !== ''
+      ) {
+        init.push(current)
       }
-      return init;
-      }, [])
+      return init
+    }, [])
 
     return arr.length === result.length
   }
 
   submitPoll() {
-    const warning = this.state.warning
     const author = this.props.user
     const { pollname, question, answers } = this.state
     const validAnswers = this.optionsValidator(answers)
 
-    if (pollname && question && answers.length > 1 && validAnswers ) {
+    if (pollname && question && answers.length > 1 && validAnswers) {
       const data = { pollname, author, question, answers }
 
       const successCB = result => {
@@ -124,9 +128,7 @@ class PollForm extends React.Component {
         this.props.history.push(location)
       }
 
-      const errorCB = result => (
-        this.setState({ warning: result.message })
-      )
+      const errorCB = result => this.setState({ warning: result.message })
 
       createPoll(data, errorCB, successCB)
     } else {
@@ -215,6 +217,7 @@ class PollForm extends React.Component {
 }
 
 PollForm.propTypes = {
-  user: PropTypes.string.isRequired
+  user: PropTypes.string.isRequired,
+  history: PropTypes.object
 }
 export default withRouter(PollForm)

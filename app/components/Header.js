@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
@@ -9,25 +10,25 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import Auth from '../utils/Auth'
 
 const styles = {
-  icon: {color: '#fff'},
-  title: {width: '50%'}
+  icon: { color: '#fff' },
+  title: { width: '50%' }
 }
 
 const loginItems = {
-  items: ["Home", "New User", "LogIn"],
-  links: ["/", "/signup", "/login"],
-  id: "login"
+  items: ['Home', 'New User', 'LogIn'],
+  links: ['/', '/signup', '/login'],
+  id: 'login'
 }
 
-const logoutItems ={
-  items: ["Home", "Change Password", "LogOut"],
-  links: ["/", "/changepassword"],
-  id: "logout"
+const logoutItems = {
+  items: ['Home', 'Change Password', 'LogOut'],
+  links: ['/', '/changepassword'],
+  id: 'logout'
 }
 
 const NavIconMenu = ({ data, redirect, logout }) => {
   const handleItemClick = (e, child) => {
-    if (child.props.id === 'logout2'){
+    if (child.props.id === 'logout2') {
       logout()
     } else {
       const index = child.props.id.slice(-1)
@@ -36,24 +37,31 @@ const NavIconMenu = ({ data, redirect, logout }) => {
   }
   return (
     <IconMenu
-        iconButtonElement={
-          <IconButton
-            iconStyle={styles.icon}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        }
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-        className="login-menu"
-        onItemTouchTap={handleItemClick}
-
-      >
-        {data.items.map((item, index) =>
-          <MenuItem key={`${data.id}-${index}`} id={`${data.id}${index}`} primaryText={data.items[index]} />
-        )}
+      iconButtonElement={
+        <IconButton iconStyle={styles.icon}>
+          <MoreVertIcon />
+        </IconButton>
+      }
+      targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+      className="login-menu"
+      onItemTouchTap={handleItemClick}
+    >
+      {data.items.map((item, index) => (
+        <MenuItem
+          key={`${data.id}-${index}`}
+          id={`${data.id}${index}`}
+          primaryText={data.items[index]}
+        />
+      ))}
     </IconMenu>
   )
+}
+
+NavIconMenu.propTypes = {
+  data: PropTypes.object.isRequired,
+  redirect: PropTypes.func.isRequired,
+  logout: PropTypes.func
 }
 
 const Login = props => (
@@ -76,6 +84,9 @@ const Login = props => (
   </div>
 )
 
+Login.propTypes = {
+  redirect: PropTypes.func.isRequired
+}
 
 // CHANGEPASSWORD => component
 // LOGOUT => delete tocken from local storage + redirect
@@ -95,9 +106,18 @@ const Logged = props => {
         <FlatButton label="LogOut" className="selected" onClick={handleClick} />
       </div>
 
-      <NavIconMenu data={logoutItems} redirect={props.redirect} logout={handleClick}/>
+      <NavIconMenu
+        data={logoutItems}
+        redirect={props.redirect}
+        logout={handleClick}
+      />
     </div>
   )
+}
+
+Logged.propTypes = {
+  logout: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired
 }
 
 const MessageInit = () => (
@@ -116,14 +136,24 @@ const MessageUser = () => {
       <h4>
         Welcome <span>{user}</span>
       </h4>
-      <Link to={`/user/${user}`}>
-        <FlatButton
-          backgroundColor="#00BCD4"
-          label="your polls"
-          className="user-button"
-          hoverColor="#EC407A"
-        />
-      </Link>
+      <div className="dashbord-buttons">
+        <Link to="/">
+          <FlatButton
+            backgroundColor="#00BCD4"
+            label="all polls"
+            className="user-button"
+            hoverColor="#EC407A"
+          />
+        </Link>
+        <Link to={`/user/${user}`}>
+          <FlatButton
+            backgroundColor="#00BCD4"
+            label="your polls"
+            className="user-button"
+            hoverColor="#EC407A"
+          />
+        </Link>
+      </div>
     </div>
   )
 }
@@ -133,6 +163,10 @@ const Dashboard = props => (
     {props.logged ? <MessageUser /> : <MessageInit />}
   </div>
 )
+
+Dashboard.propTypes = {
+  logged: PropTypes.bool.isRequired
+}
 
 const Header = props => {
   const titleClick = () => props.history.push('/')
@@ -151,9 +185,11 @@ const Header = props => {
           </span>
         }
         iconElementRight={
-          Auth.isUserAuthenticated()
-          ? <Logged logout={LogOut} redirect={redirectNavItem} />
-          : <Login redirect={redirectNavItem} />
+          Auth.isUserAuthenticated() ? (
+            <Logged logout={LogOut} redirect={redirectNavItem} />
+          ) : (
+            <Login redirect={redirectNavItem} />
+          )
         }
         showMenuIconButton={false}
       />
@@ -162,8 +198,8 @@ const Header = props => {
   )
 }
 
-// Header.defaultProps = {
-//   logged: false
-// }
+Header.propTypes = {
+  history: PropTypes.object
+}
 
 export default withRouter(Header)

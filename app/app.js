@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 require('./static/index.scss')
@@ -43,6 +44,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 )
+
+PrivateRoute.propTypes = {
+  location: PropTypes.object,
+  component: PropTypes.func
+}
 
 const App = () => (
   <Router>
