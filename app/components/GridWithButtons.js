@@ -93,7 +93,7 @@ class GridWithButtons extends React.Component {
                       labelStyle={styles.label}
                       onClick={this.handleClick.bind(
                         null,
-                        `results/${item.pollname}`,
+                        `results/${item.author}-${item.pollname}`,
                         item
                       )}
                     />
@@ -140,7 +140,7 @@ class GridWithButtons extends React.Component {
                       labelStyle={styles.label}
                       onClick={this.handleClick.bind(
                         null,
-                        `results/${item.pollname}`,
+                        `results/${item.author}-${item.pollname}`,
                         item
                       )}
                     />
