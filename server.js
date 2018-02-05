@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser')
 var app = express()
 require('dotenv').config()
 
-app.set('port', (process.env.PORT || 3000))
+app.set('port', (process.env.PORT || 5000))
 
 var configDB = process.env.MONGOLAB_URI
 
@@ -21,6 +21,7 @@ mongoose.connect(configDB, {
   useMongoClient: true,
   autoIndex: false
 })
+mongoose.Promise = global.Promise
 require('./app/config/passport')(passport)
 
 app.use(morgan('dev'))
