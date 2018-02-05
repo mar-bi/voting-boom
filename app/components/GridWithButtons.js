@@ -72,7 +72,7 @@ class GridWithButtons extends React.Component {
                         tooltip="link to poll"
                         onClick={this.handleClick.bind(
                           null,
-                          `link/${item.pollname}`,
+                          `link/${item.author}-${item.pollname}`,
                           item
                         )}
                       >
@@ -119,7 +119,7 @@ class GridWithButtons extends React.Component {
                         tooltip="link to poll"
                         onClick={this.handleClick.bind(
                           null,
-                          `link/${item.pollname}`,
+                          `link/${item.author}-${item.pollname}`,
                           item
                         )}
                       >

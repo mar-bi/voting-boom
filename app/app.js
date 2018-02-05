@@ -62,7 +62,7 @@ const App = () => (
           <PrivateRoute path="/changepassword" component={PasswordForm} />
           <PrivateRoute path="/user/:userId" component={UserTabs} />
           <Route path="/polls/results/:pollId" component={PollResults} />
-          <Route exact path="/polls/link/:pollId" component={PollAddress} />
+          <PrivateRoute exact path="/polls/link/:pollId" component={PollAddress} />
           <Route exact path="/polls/:pollId" component={SinglePoll} />
           <Route component={NotFoundPage} />
         </Switch>
