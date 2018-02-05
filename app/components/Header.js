@@ -88,8 +88,8 @@ Login.propTypes = {
   redirect: PropTypes.func.isRequired
 }
 
-// CHANGEPASSWORD => component
-// LOGOUT => delete tocken from local storage + redirect
+// CHANGE PASSWORD => component
+// LOGOUT => delete token from local storage + redirect
 const Logged = props => {
   const handleClick = () => props.logout()
 
@@ -123,7 +123,7 @@ Logged.propTypes = {
 const MessageInit = () => (
   <div className="dashbord-message">
     <h1>Welcome to VotingBoom</h1>
-    <h4>Every voice is recordered</h4>
+    <h4>Every voice is recorded</h4>
     <h3>Create, store, and share your polls</h3>
   </div>
 )

@@ -23,10 +23,10 @@ export default class Axis extends React.Component {
 
   render() {
     const axisClass =
-      this.props.orient === 'bottom'
-        ? 'axis x-axis'
-        : 'axis y-axis'
-    return <g className={axisClass} ref="axis" transform={this.props.translate} />
+      this.props.orient === 'bottom' ? 'axis x-axis' : 'axis y-axis'
+    return (
+      <g className={axisClass} ref="axis" transform={this.props.translate} />
+    )
   }
 }
 
@@ -34,5 +34,5 @@ Axis.propTypes = {
   orient: PropTypes.string.isRequired,
   scale: PropTypes.func.isRequired,
   ticks: PropTypes.number,
-  translate: PropTypes.string.isRequired,
+  translate: PropTypes.string.isRequired
 }

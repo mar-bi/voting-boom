@@ -17,7 +17,6 @@ const styles = {
   label: { color: '#fff' }
 }
 
-// receive props from My Polls or AllPolls
 class SinglePoll extends React.Component {
   constructor(props) {
     super(props)
@@ -71,7 +70,7 @@ class SinglePoll extends React.Component {
       _id: poll._id,
       option: this.state.vote
     }
-    //!!! change redirect .../${poll.author}-${poll.pollname}
+    
     const redirect = result => {
       const location = {
         pathname: `/polls/results/${poll.author}-${poll.pollname}`,
@@ -142,7 +141,6 @@ class SinglePoll extends React.Component {
 }
 
 export default withRouter(SinglePoll)
-
 
 SinglePoll.propTypes = {
   location: PropTypes.object,

@@ -19,7 +19,7 @@ function validateSignupForm(payload) {
     !validator.isEmail(payload.email)
   ) {
     isFormValid = false
-    errors.email = 'Please provide a correct email address.'
+    errors.email = 'Please provide a correct email address'
   }
 
   if (
@@ -28,7 +28,7 @@ function validateSignupForm(payload) {
     payload.password.trim().length < 4
   ) {
     isFormValid = false
-    errors.password = 'Password must have at least 4 characters.'
+    errors.password = 'Password must have at least 4 characters'
   }
 
   if (
@@ -37,11 +37,11 @@ function validateSignupForm(payload) {
     payload.name.trim().length === 0
   ) {
     isFormValid = false
-    errors.name = 'Please provide your name.'
+    errors.name = 'Please provide your name'
   }
 
   if (!isFormValid) {
-    message = 'Check the form for errors.'
+    message = 'Check the form for errors'
   }
 
   return {

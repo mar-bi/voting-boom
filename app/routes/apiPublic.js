@@ -12,7 +12,6 @@ router.post('/addVote', function(req, res) {
     { new: true, upsert: true },
     function(err, data) {
       if (err) return console.error(err)
-      //res.send('the vote is recordered');
       res.json(data)
     }
   )

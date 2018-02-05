@@ -38,7 +38,7 @@ class PollAddress extends React.Component {
     }
   }
 
-  render(){
+  render() {
     const poll = this.state.poll
     return (
       <div className="single-poll-container">

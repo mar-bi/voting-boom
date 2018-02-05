@@ -57,7 +57,7 @@ class PollResults extends React.Component {
     }
   }
 
-  render(){
+  render() {
     const poll = this.state.poll
     return (
       <div className="poll-results-container">

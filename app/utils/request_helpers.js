@@ -5,7 +5,6 @@ import Auth from './Auth'
 const home = 'http://localhost:3000/'
 
 
-// callback is for purpose of redirection
 // request from PollForm component
 export function createPoll(data, errorCB, successCB) {
   const url = `${home}api/private/addPoll`
@@ -28,7 +27,7 @@ export function createPoll(data, errorCB, successCB) {
     })
 }
 
-// callback is for purpose of redirection
+// callback is for redirection
 // request from SinglePoll component
 export function sendVote(data, callback) {
   const url = `${home}api/public/addVote`
@@ -46,7 +45,6 @@ export function sendVote(data, callback) {
 }
 
 // requests from SignupForm and LoginFrom Components
-// callback is for purpose of redirection
 export function sendAuthData(str, data, errorCB, successCB) {
   const url = home + 'auth/' + str
   axios
@@ -87,6 +85,7 @@ export function changePassword(data, errorCB, successCB) {
     })
 }
 
+// callback is for redirection
 export function getPolls(user, callback) {
   const url = user
     ? home + `api/private/${user}/getpolls`
@@ -106,7 +105,7 @@ export function getPolls(user, callback) {
     })
 }
 
-//
+// callback is for redirection
 export function getPoll(author, name, callback) {
   const url = `${home}api/public/getpoll/${author}-${name}`
 
@@ -120,7 +119,7 @@ export function getPoll(author, name, callback) {
     })
 }
 
-// callback is for purpose of redirection
+// callback is for redirection
 export function deletePoll(data, callback) {
   const url = `${home}api/private/deletePoll`
   const config = {

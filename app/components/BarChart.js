@@ -18,7 +18,7 @@ const renderRect = props => {
   }
 }
 
-renderRect.propTypes ={
+renderRect.propTypes = {
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired
 }

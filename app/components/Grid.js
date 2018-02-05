@@ -5,7 +5,7 @@ import { List, ListItem } from 'material-ui/List'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-// get props with array of polls and dymanically generates grid of polls
+// get props with array of polls and dynamically generates grid of polls
 const Grid = props => {
   const polls = props.polls,
     last = polls.length - 1

@@ -23,7 +23,7 @@ function validatePasswordForm(payload) {
     payload.oldPassword.trim().length < 4
   ) {
     isFormValid = false
-    errors.oldPassword = 'Password must have at least 4 characters.'
+    errors.oldPassword = 'Password must have at least 4 characters'
   }
 
   if (
@@ -32,11 +32,11 @@ function validatePasswordForm(payload) {
     payload.newPassword.trim().length < 4
   ) {
     isFormValid = false
-    errors.newPassword = 'Password must have at least 4 characters.'
+    errors.newPassword = 'Password must have at least 4 characters'
   }
 
   if (!isFormValid) {
-    message = 'Check the form for errors.'
+    message = 'Check the form for errors'
   }
 
   return {
@@ -61,7 +61,7 @@ router.post('/addPoll', function(req, res) {
     } else if (result.length !== 0) {
       return res.json({
         success: false,
-        message: 'This pollname is already used'
+        message: 'This poll name is already used'
       })
     } else {
       newPoll.link = `${home}polls/${newPoll.author}-${newPoll.pollname}/`
@@ -126,13 +126,13 @@ router.post('/changePassword', function(req, res) {
     if (userErr || !user) {
       return res.json({
         success: false,
-        message: 'Error. Password is not changed.'
+        message: 'Error. Password is not changed'
       })
     }
     if (!user.validPassword(oldPass)) {
       return res.json({
         success: false,
-        message: 'Old password is incorrect.',
+        message: 'Old password is incorrect',
         errors: { oldPassword: 'Password does not match' }
       })
     }
@@ -140,7 +140,7 @@ router.post('/changePassword', function(req, res) {
       if (err) return console.error(err)
       return res.json({
         success: true,
-        message: 'Password is changed successfully.'
+        message: 'Password is changed successfully'
       })
     })
   })
