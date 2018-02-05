@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser')
 var app = express()
 require('dotenv').config()
 
+app.set('port', (process.env.PORT || 3000))
+
 var configDB = process.env.MONGOLAB_URI
 
 mongoose.connect(configDB, {
@@ -53,7 +55,6 @@ app.get('/*', function(req, res){
 })
 
 // launch ----------------------------------------------------------
-var port = 3000
-app.listen(port,  function () {
-  console.log('Node.js listening on port ' + port + '...')
+app.listen(app.get('port'),  function () {
+  console.log('Node app is running on port', app.get('port'))
 })

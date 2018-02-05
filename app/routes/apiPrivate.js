@@ -5,7 +5,6 @@ var Poll = require('../models/poll.js')
 var User = require('../models/user.js')
 
 const home = process.env.BASE_URL
-console.log(home)
 
 // @param {object} payload - the HTTP body message
 // @returns {object} The result of validation. Object contains a boolean
