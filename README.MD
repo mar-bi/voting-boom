@@ -23,4 +23,4 @@ The user can create, store, and share his/her polls; vote in the available pools
   7. bcrypt-nodejs,
   8. validator
 
-Link to the [VotingBoom]()  
+Link to the [VotingBoom](https://voting-boom.herokuapp.com/)  
