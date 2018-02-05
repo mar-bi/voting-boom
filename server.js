@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser')
 var app = express()
 require('dotenv').config()
 
-var configDB = process.env.LOCAL_MONGODB
+var configDB = process.env.MONGOLAB_URI
 
 mongoose.connect(configDB, {
   useMongoClient: true,
