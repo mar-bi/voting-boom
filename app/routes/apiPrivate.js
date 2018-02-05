@@ -4,7 +4,9 @@ var bcrypt = require('bcrypt-nodejs')
 var Poll = require('../models/poll.js')
 var User = require('../models/user.js')
 
-const home = process.env.BASE_URL
+//const home = process.env.LOCAL_HOST // localhost
+const home = process.env.PRODUCTION_HOST
+
 
 // @param {object} payload - the HTTP body message
 // @returns {object} The result of validation. Object contains a boolean

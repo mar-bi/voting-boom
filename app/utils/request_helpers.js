@@ -1,13 +1,10 @@
 import axios from 'axios'
 import Auth from './Auth'
-
-//!!! change before deployment
-const home = 'http://localhost:3000/'
-
+import { API_ROOT } from './api-config'
 
 // request from PollForm component
 export function createPoll(data, errorCB, successCB) {
-  const url = `${home}api/private/addPoll`
+  const url = `${API_ROOT}api/private/addPoll`
 
   const config = {
     headers: { Authorization: `bearer ${Auth.getToken()}` }
@@ -30,7 +27,7 @@ export function createPoll(data, errorCB, successCB) {
 // callback is for redirection
 // request from SinglePoll component
 export function sendVote(data, callback) {
-  const url = `${home}api/public/addVote`
+  const url = `${API_ROOT}api/public/addVote`
 
   axios
     .post(url, data)
@@ -46,7 +43,7 @@ export function sendVote(data, callback) {
 
 // requests from SignupForm and LoginFrom Components
 export function sendAuthData(str, data, errorCB, successCB) {
-  const url = home + 'auth/' + str
+  const url = API_ROOT + 'auth/' + str
   axios
     .post(url, data)
     .then(function(response) {
@@ -64,7 +61,7 @@ export function sendAuthData(str, data, errorCB, successCB) {
 
 // requests from PasswordForm
 export function changePassword(data, errorCB, successCB) {
-  const url = `${home}api/private/changePassword`
+  const url = `${API_ROOT}api/private/changePassword`
 
   const config = {
     headers: { Authorization: `bearer ${Auth.getToken()}` }
@@ -88,8 +85,8 @@ export function changePassword(data, errorCB, successCB) {
 // callback is for redirection
 export function getPolls(user, callback) {
   const url = user
-    ? home + `api/private/${user}/getpolls`
-    : home + 'api/public/getpolls'
+    ? API_ROOT + `api/private/${user}/getpolls`
+    : API_ROOT + 'api/public/getpolls'
 
   const config = user
     ? { headers: { Authorization: `bearer ${Auth.getToken()}` } }
@@ -107,7 +104,7 @@ export function getPolls(user, callback) {
 
 // callback is for redirection
 export function getPoll(author, name, callback) {
-  const url = `${home}api/public/getpoll/${author}-${name}`
+  const url = `${API_ROOT}api/public/getpoll/${author}-${name}`
 
   axios
     .get(url)
@@ -121,7 +118,7 @@ export function getPoll(author, name, callback) {
 
 // callback is for redirection
 export function deletePoll(data, callback) {
-  const url = `${home}api/private/deletePoll`
+  const url = `${API_ROOT}api/private/deletePoll`
   const config = {
     headers: { Authorization: `bearer ${Auth.getToken()}` }
   }
