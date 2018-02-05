@@ -1,10 +1,9 @@
 # Voting Boom  
 Full-stack voting application.
 
-It creates and stores user's polls, collect votes and provide simple poll
-results statistic.
+The user can create, store, and share his/her polls; vote in the available pools, and see the poll results visualized with a bar chart.
 
-**Voting Boom** is built with:
+## **Voting Boom** is built with:
 - on the **_front-end_**:
   1. React,
   2. React-Router,
@@ -18,10 +17,10 @@ results statistic.
   1. Node,
   2. Express,
   3. Passport,
-  4. MongoDB,
-  5. Mongoose,
-  6. bcrypt-nodejs,
-  7. validator,
-  8. jsonwebtoken
+  4. jsonwebtoken,
+  5. MongoDB,
+  6. Mongoose,
+  7. bcrypt-nodejs,
+  8. validator
 
 Link to the [VotingBoom]()  
