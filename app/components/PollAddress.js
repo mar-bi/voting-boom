@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
-//import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
-//import ActionFavorite from 'material-ui/svg-icons/action/favorite'
-//import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import FlatButton from 'material-ui/FlatButton'
 import { Link } from 'react-router-dom'
 

@@ -310,12 +310,27 @@ a {
   h3 {
     font-size: 2em !important;
     color: darken($primary_color, 10%);
-    span {
-      font-size: 0.8em;
-      color: $text_color;
-    }
+    margin-bottom: 0;
     @media screen and (max-width: $smallscreen) {
       font-size: 1.25em !important;
+    }
+  }
+  h4 {
+    text-align: center;
+    color: $text_color;
+    font-size: 1.5em;
+    margin: 0.3em 0;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 1.25em;
+    }
+  }
+  h5 {
+    text-align: center;
+    font-size: 1em;
+    color: lighten($text_color, 25%);
+    margin: 0 0 0.3em 0;
+    @media screen and (max-width: $smallscreen) {
+      font-size: 0.85em;
     }
   }
   svg {

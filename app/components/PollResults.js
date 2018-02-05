@@ -27,12 +27,17 @@ const styles = {
 
 const PollResults = props => {
   const poll = props.location.state.poll
+  const pollLink = props.match.params.pollId,
+    index = pollLink.indexOf('-'),
+    pollAuthor = pollLink.slice(0, index),
+    pollName = pollLink.slice(index + 1)
+
   return (
     <div className="poll-results-container">
       <Paper zDepth={2}>
-        <h3>
-          {props.match.params.pollId} <br /> <span>Poll Results</span>
-        </h3>
+        <h3>{pollName}</h3>
+        <h5>Author: {pollAuthor}</h5>
+        <h4>Poll Results</h4>
         <div>
           <div className="chart-std">
             <BarChart data={poll.votes} style={chartStyles} />

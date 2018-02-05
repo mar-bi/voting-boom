@@ -18,7 +18,7 @@ router.post('/addVote', function(req, res) {
   )
 })
 
-// GET all polls ---------------------------------------------------
+// get all polls ---------------------------------------------------
 router.get('/getpolls', function(req, res) {
   Poll.find({}, function(err, result) {
     if (err) return console.error(err)
@@ -28,8 +28,12 @@ router.get('/getpolls', function(req, res) {
 
 //get single poll
 router.get('/getpoll/:pollId', function(req, res) {
-  const name = req.params.pollId
-  Poll.find({ pollname: name }, function(err, result) {
+  const pollId = req.params.pollId,
+    index = pollId.indexOf('-'),
+    author = pollId.slice(0, index),
+    poll = pollId.slice(index + 1)
+
+  Poll.find({ pollname: poll, author: author }, function(err, result) {
     if (err) return console.error(err)
     res.json(result[0])
   })

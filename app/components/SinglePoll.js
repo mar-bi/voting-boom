@@ -40,14 +40,21 @@ class SinglePoll extends React.Component {
 
   componentDidMount() {
     const poll = this.props.location.state || false
+
     if (poll) {
       // from location
       this.setState({ poll: this.props.location.state.poll })
     } else {
       // from DB
-      const pollName = this.props.match.params.pollId
+      console.log('get poll from DB')
+
+      const pollName = this.props.match.params.pollId,
+        index = pollName.indexOf('-'),
+        author = pollName.slice(0, index),
+        poll = pollName.slice(index + 1)
+
       const changeState = poll => this.setState({ poll: poll })
-      const loadPoll = () => getPoll(pollName, changeState)
+      const loadPoll = () => getPoll(author, poll, changeState)
       loadPoll()
     }
   }
@@ -64,9 +71,10 @@ class SinglePoll extends React.Component {
       _id: poll._id,
       option: this.state.vote
     }
+    //!!! change redirect .../${poll.author}-${poll.pollname}
     const redirect = result => {
       const location = {
-        pathname: `/polls/results/${poll.pollname}`,
+        pathname: `/polls/results/${poll.author}-${poll.pollname}`,
         state: { poll: result }
       }
       this.props.history.push(location)

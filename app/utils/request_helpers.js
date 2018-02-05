@@ -4,6 +4,7 @@ import Auth from './Auth'
 //!!! change before deployment
 const home = 'http://localhost:3000/'
 
+
 // callback is for purpose of redirection
 // request from PollForm component
 export function createPoll(data, errorCB, successCB) {
@@ -52,11 +53,9 @@ export function sendAuthData(str, data, errorCB, successCB) {
     .post(url, data)
     .then(function(response) {
       //@response.data {object {success, token, user, path}}
-      //console.log(response)
       if (!response.data.success) {
         errorCB(response.data)
       } else {
-        //console.log(response.data)
         successCB(response.data)
       }
     })
@@ -77,11 +76,9 @@ export function changePassword(data, errorCB, successCB) {
     .post(url, data, config)
     .then(function(response) {
       //@response.data {object {success, message}}
-      //console.log(response)
       if (!response.data.success) {
         errorCB(response.data)
       } else {
-        //console.log(response.data)
         successCB(response.data)
       }
     })
@@ -102,7 +99,6 @@ export function getPolls(user, callback) {
   axios
     .get(url, config)
     .then(function(response) {
-      //console.log(response.data)
       callback(response.data)
     })
     .catch(function(error) {
@@ -110,8 +106,9 @@ export function getPolls(user, callback) {
     })
 }
 
-export function getPoll(name, callback) {
-  const url = `${home}api/public/getpoll/${name}`
+//
+export function getPoll(author, name, callback) {
+  const url = `${home}api/public/getpoll/${author}-${name}`
 
   axios
     .get(url)
