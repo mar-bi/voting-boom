@@ -16,6 +16,7 @@ import SinglePoll from './components/SinglePoll'
 import PollResults from './components/PollResults'
 import NotFoundPage from './components/NotFoundPage'
 import PollAddress from './components/PollAddress'
+import Footer from './components/Footer'
 
 import Auth from './utils/Auth'
 
@@ -70,6 +71,7 @@ const App = () => (
           <Route exact path="/polls/:pollId" component={SinglePoll} />
           <Route component={NotFoundPage} />
         </Switch>
+        <Footer />
       </div>
     </MuiThemeProvider>
   </Router>

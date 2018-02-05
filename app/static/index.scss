@@ -450,3 +450,14 @@ g.x-axis {
     }
   }
 }
+
+footer {
+  margin-top: 2em;
+  @media screen and (max-width: $smallscreen) {
+    margin-top: 1em;
+  }
+  p {
+    text-align: center;
+    font-size: 0.9em;
+  }
+}
