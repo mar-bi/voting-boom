@@ -1,6 +1,8 @@
 import axios from 'axios'
 import Auth from './Auth'
-import { API_ROOT } from './api-config'
+
+
+const API_ROOT = 'https://voting-boom.herokuapp.com/'
 
 // request from PollForm component
 export function createPoll(data, errorCB, successCB) {
